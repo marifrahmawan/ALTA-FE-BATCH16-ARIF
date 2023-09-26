@@ -10,7 +10,7 @@ Repository pengumpulan tugas harian ALTA Immersive Program FrontEnd.
 git clone git@github.com:Immersive-Frontend-Resource/FE-Resource.git
 ```
 
-setelah itu buat repository pada github profile kalian dengan format `ALTA-FE-BATCH1`, lalu copy link SSH seperti gambar dibawah
+setelah itu buat repository pada github profile kalian dengan format `ALTA-FE-BATCH1-Nama` (Ketentuan dapat dilihat pada link [berikut](https://docs.google.com/document/d/1apVcuLAv3GJTOTRWZGYsAHIWQq19JgBJgk_KXLSRynA/edit#heading=h.apg7xnrwmztx)), lalu copy link SSH seperti gambar dibawah
 
 ![repo clone](https://res.cloudinary.com/hypeotesa/image/upload/v1664123506/clone_tuuriz.png)
 
