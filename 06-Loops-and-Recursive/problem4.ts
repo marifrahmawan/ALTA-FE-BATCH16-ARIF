@@ -1,5 +1,13 @@
 function largestNumber(array: number[]): number {
-  // your code here
+  let largest = 0;
+  
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] > largest) {
+      largest = array[i];
+    }
+  }
+
+  return largest;
 }
 
 console.log(largestNumber([5, 2, 67, 37, 85, 19, 10])); // 85
