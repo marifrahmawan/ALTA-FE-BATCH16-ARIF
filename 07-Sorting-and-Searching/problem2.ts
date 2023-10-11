@@ -1,5 +1,18 @@
 function playingDomino(cards: number[][], deck: number[]): number[] {
-  // your code here
+  const temp = [];
+  for (let i = 0; i < cards.length; i++) {
+    for (let j = 0; j < deck.length; j++) {
+      if (cards[i][j] === deck[0] || cards[i][j] === deck[1]) {
+        temp.push(cards[i]);
+      }
+    }
+  }
+
+  if (temp.length === 0) {
+    return [];
+  } else {
+    return temp[0];
+  }
 }
 
 console.log(
