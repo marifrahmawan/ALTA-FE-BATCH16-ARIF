@@ -1,7 +1,4 @@
-function dragonOfLoowater(
-  dragonHead: number[],
-  knightHeight: number[]
-): number | string {
+function dragonOfLoowater(dragonHead: number[], knightHeight: number[]): number | string {
   // your code here
 }
 
