@@ -1,5 +1,19 @@
 function findMinAndMax(arr: number[]): string {
-  // your code here
+  let indexMin = 0;
+  let indexMax = 0;
+  const sortArr = [...arr].sort((a, b) => a - b);
+
+  for (let i = 0; i < arr.length; i++) {
+    if (sortArr[0] === arr[i]) {
+      indexMin = i;
+    }
+
+    if (sortArr[sortArr.length - 1] === arr[i]) {
+      indexMax = i;
+    }
+  }
+
+  return `min: ${sortArr[0]} index: ${indexMin} max: ${sortArr[sortArr.length - 1]} index: ${indexMax}`;
 }
 
 console.log(findMinAndMax([5, 7, 4, -2, -1, 8])); // min: -2 index: 3 max: 8 index: 5
