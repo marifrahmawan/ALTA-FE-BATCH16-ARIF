@@ -1,5 +1,22 @@
 function fiboTopDown(n: number): number {
   // your code here
+  if (n === 0 || n === 1) {
+    return n;
+  }
+
+  let temp = 0;
+  let sum = 0;
+  let result = 1;
+
+  let i = 1;
+  while (i < n) {
+    sum = temp + result;
+    temp = result;
+    result = sum;
+    i++;
+  }
+
+  return result;
 }
 
 console.log(fiboTopDown(0)); // 0
