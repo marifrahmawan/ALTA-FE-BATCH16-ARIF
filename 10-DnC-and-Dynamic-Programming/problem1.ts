@@ -1,22 +1,19 @@
 function fiboTopDown(n: number): number {
-  // your code here
-  if (n === 0 || n === 1) {
-    return n;
+  let count = 0;
+  let memo: number[] = [];
+
+  count++;
+
+  if (memo[n]) {
+    return memo[n];
   }
 
-  let temp = 0;
-  let sum = 0;
-  let result = 1;
-
-  let i = 1;
-  while (i < n) {
-    sum = temp + result;
-    temp = result;
-    result = sum;
-    i++;
+  if (n <= 1) {
+    memo[n] = n;
+  } else {
+    memo[n] = fiboTopDown(n - 1) + fiboTopDown(n - 2);
   }
-
-  return result;
+  return memo[n];
 }
 
 console.log(fiboTopDown(0)); // 0
