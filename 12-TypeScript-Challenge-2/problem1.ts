@@ -1,5 +1,17 @@
 function pairSum(arr: number[], target: number): number[] {
-  // your code here
+  let result: number[] = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    let j = i + 1;
+    while (j < arr.length) {
+      if (arr[i] + arr[j] === target) {
+        result.push(i, j);
+      }
+      j++;
+    }
+  }
+
+  return result;
 }
 
 console.log(pairSum([1, 2, 3, 4, 6], 6)); // [1, 3]

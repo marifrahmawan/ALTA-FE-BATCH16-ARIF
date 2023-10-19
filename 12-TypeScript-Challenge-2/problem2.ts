@@ -1,5 +1,12 @@
 function cetakTablePerkalian(number: number): void {
-  // Your Solution Code Here
+  for (let i = 1; i <= number; i++) {
+    let result = ''
+    for (let j = 1; j <= number; j++) {
+      result += ` ${i * j} `
+    }
+    result += ' '
+    console.log(result)
+  }
 }
 
 cetakTablePerkalian(9);
