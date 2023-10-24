@@ -1,0 +1,101 @@
+.title {
+  width: 100%;
+  background-color: #f4f7fc;
+}
+
+.title_text {
+  font-weight: 700;
+  font-size: 40px;
+  padding-top: 38px;
+  padding-left: 125px;
+  padding-bottom: 41px;
+}
+
+.main {
+  display: flex;
+  padding-top: 42px;
+  padding-left: 125px;
+  padding-right: 125px;
+}
+
+.main_left {
+  flex: 1;
+}
+
+.main_intro {
+  width: 425px;
+  height: 81px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #19345e;
+}
+
+.education h3 {
+  margin-top: 35px;
+  font-family: 'Muli', 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.education,
+ul {
+  padding-left: 10px;
+}
+
+.education,
+li {
+  margin-top: 13px;
+}
+
+.education,
+h4,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.skill {
+  margin-top: 41px;
+}
+
+.skill_title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+table,
+tr,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px 15px 5px 15px;
+}
+
+.main_right {
+  flex: 1;
+  display: flex;
+  justify-content: right;
+}
+
+.main_right_container {
+  position: relative;
+  width: 292px;
+  height: 280px;
+  display: flex;
+  justify-content: right;
+}
+
+.dot_pict {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90px;
+  height: 76px;
+}
+
+.main_profile_pict {
+  width: 249px;
+  height: 248px;
+  border-radius: 10px;
+}
