@@ -85,9 +85,9 @@ footer {
   display: flex;
   justify-content: right;
   align-items: center;
-  width: 400px;
+  width: 250px;
   height: 60%;
   font-size: 14px;
   font-weight: 300;
-  border-left: 1px solid gray;
+  border-left: 2px solid #2f4564;
 }
