@@ -16,6 +16,12 @@
   margin: 0 125px 0 125px;
 }
 
+@media (min-width: 1235px) {
+  .container {
+    width: 60%;
+  }
+}
+
 .main_profile_pict {
   width: 355px;
   height: 355px;

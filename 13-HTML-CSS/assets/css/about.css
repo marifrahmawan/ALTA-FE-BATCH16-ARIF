@@ -1,21 +1,46 @@
 .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   background-color: #f4f7fc;
 }
 
 .title_text {
+  width: 100%;
   font-weight: 700;
   font-size: 40px;
   padding-top: 38px;
   padding-left: 125px;
+  padding-right: 125px;
   padding-bottom: 41px;
+}
+
+@media (min-width: 1235px) {
+  .title_text {
+    width: 60%;
+  }
+}
+
+.main_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .main {
   display: flex;
+  width: 100%;
   padding-top: 42px;
   padding-left: 125px;
   padding-right: 125px;
+}
+
+@media (min-width: 1235px) {
+  .main {
+    width: 60%;
+  }
 }
 
 .main_left {
