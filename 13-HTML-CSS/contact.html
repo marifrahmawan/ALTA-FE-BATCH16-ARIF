@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/css/global.css" />
+    <link rel="stylesheet" href="./assets/css/contact.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <title>Contact - Alterra Academy</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div
+          class="col-4 d-none d-sm-none d-md-none d-lg-flex contact_image_cover p-0 m-0 d-flex justify-content-center align-items-center"
+        >
+          <img src="./assets/image/logo-ALTA-v2@2x.png" alt="logo alterra" style="width: 200px; height: 100px" />
+        </div>
+        <div class="col d-flex justify-content-center align-items-center p-0 m-0">
+          <div class="col-8 h-95 d-flex flex-column justify-content-center fs-20">
+            <p class="fs-24 mb-12">Contact Us</p>
+            <form action="./contact.html">
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name<span style="color: red">*</span></label>
+                <input type="text" class="form-control form-control-lg" placeholder="Full Name" />
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address<span style="color: red">*</span></label>
+                <input type="email" class="form-control form-control-lg" placeholder="example@alterra.id" />
+              </div>
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number<span style="color: red">*</span></label>
+                <input type="text" class="form-control form-control-lg" placeholder="085554447900" />
+              </div>
+              <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example">
+                  <option selected disabled>Selected ...</option>
+                  <option value="Backend">Backend</option>
+                  <option value="Frontend">Front End</option>
+                  <option value="QA">QA Engineer</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control form-control-lg" rows="4"></textarea>
+              </div>
+              <button type="submit" class="col-2 submit_button">Submit</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

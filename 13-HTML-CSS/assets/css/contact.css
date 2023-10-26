@@ -1,0 +1,63 @@
+body {
+  color: #19345e !important;
+}
+
+input, select, textarea {
+  border: 1px solid black !important;
+}
+
+input:focus, select:focus, textarea:focus{
+  box-shadow: none !important;
+  outline: 2px solid #19345E !important;
+}
+
+
+option:disabled {
+  color: #d5d5d5;
+}
+
+::placeholder {
+  color: #d5d5d5 !important;
+}
+
+::-ms-input-placeholder {
+  color: #d5d5d5 !important;
+}
+
+
+.contact_image_cover {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(rgba(25, 52, 94, 0.5), rgba(25, 52, 94, 0.5)),
+    url('../image/charles-rRWiVQzLm7k-unsplash.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.h-95 {
+  height: 95%;
+}
+
+.fs-20 {
+  font-size: 20px;
+}
+
+.fs-24 {
+  font-size: 24px;
+}
+
+.submit_button {
+  background-color: #F47522;
+  border-radius: 30px;
+  border: 0px solid;
+  height: 40px !important;
+  color: white;
+  font-weight: 300;
+}
+
+@media screen and (max-width: 1024px) and (min-width: 320px) {
+  .submit_button {
+    width: 120px !important;
+  }
+}
+
