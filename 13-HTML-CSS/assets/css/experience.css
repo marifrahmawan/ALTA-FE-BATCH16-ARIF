@@ -77,7 +77,7 @@ footer {
 
 .footer_social_media,
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .socmed_text {
@@ -90,6 +90,7 @@ a {
   width: 20px;
   height: 20px;
   margin-right: 18px;
+  text-decoration: none !important;
 }
 
 .footer_copyright {
@@ -151,6 +152,16 @@ a {
   }
 }
 
+@media screen and (max-width: 1199px) and (min-width: 768px) {
+  .navbar_container {
+    padding: 0 125px 0 125px;
+  }
+
+  .title_text {
+    padding: 0 125px 0 125px;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   nav {
     width: 100% !important;
@@ -191,9 +202,12 @@ a {
 
 .main {
   display: flex;
-  width: 100%;
+  padding-left: 50px;
+  margin-top: 20px;
+  width: 50% !important;
   min-height: 100%;
   padding-top: 42px;
+  border-left: 2px solid #cfd6e2;
 }
 
 .main_left {
@@ -210,7 +224,18 @@ a {
 }
 
 .card-body {
+  position: relative !important;
   padding-bottom: 0 !important;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: -62px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #19345e;
 }
 
 .card_title {
@@ -264,5 +289,7 @@ a {
   .main {
     flex-direction: column-reverse;
     padding: 0;
+    justify-content: center;
+    align-items: center;
   }
 }
