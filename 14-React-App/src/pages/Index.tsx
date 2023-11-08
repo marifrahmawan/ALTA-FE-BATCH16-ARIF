@@ -1,9 +1,9 @@
-import Login from "./auth/Login";
+import AuthLayout from "./auth/AuthLayout";
 
 const Index = () => {
   return (
     <>
-      <Login />
+      <AuthLayout />
     </>
   );
 };
