@@ -1,11 +1,8 @@
-import AuthLayout from "./auth/AuthLayout";
+import { RouterProvider } from "react-router-dom";
+import { router } from "../routes/router";
 
 const Index = () => {
-  return (
-    <>
-      <AuthLayout />
-    </>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default Index;

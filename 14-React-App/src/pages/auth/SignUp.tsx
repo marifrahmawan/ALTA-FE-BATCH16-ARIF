@@ -22,7 +22,7 @@ const SignUp = () => {
       <CardHeader>
         <CardTitle>Sign Up</CardTitle>
         <CardDescription>
-          <p>Don't have an account yet?</p>
+          Don't have an account yet?
         </CardDescription>
       </CardHeader>
       <CardContent>

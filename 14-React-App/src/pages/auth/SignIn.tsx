@@ -22,7 +22,7 @@ const SignIn = () => {
       <CardHeader>
         <CardTitle>Sign In</CardTitle>
         <CardDescription>
-          <p>Enter your email and password</p>
+          Enter your email and password
         </CardDescription>
       </CardHeader>
       <CardContent>
