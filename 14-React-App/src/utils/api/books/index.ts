@@ -1,5 +1,5 @@
 import { IBook } from "./types";
-import { booksSampleData } from "./sample-data";
+import { getBooks, getBooksForHomePage,getDetailBook } from "./api";
 
-export { booksSampleData };
+export { getBooks, getBooksForHomePage, getDetailBook };
 export type { IBook };

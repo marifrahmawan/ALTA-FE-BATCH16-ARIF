@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="flex h-full w-full flex-col items-center justify-center">
         <div className="flex w-full items-center justify-between pb-5">
           <NavLink to="/" className="">
-            <p className="text-[20px] font-semibold leading-3">
+            <p className="text-[20px] font-semibold leading-5">
               E-<span className="text-secondary-green">Library</span>
             </p>
             <p className="text-[12px]">Your book partners</p>

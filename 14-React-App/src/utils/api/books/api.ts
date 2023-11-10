@@ -1,20 +1,39 @@
 import { Response, PayloadPagination } from "@/utils/types/types";
-import { IBook, booksSampleData } from ".";
+import { IBook } from ".";
+import axiosWithConfig from "../axiosWithConfig";
 
 export const getBooks = async () => {
-  return new Promise<Response<PayloadPagination<IBook[]>>>((resolve) => {
-    setTimeout(() => {
-      const response = {
-        message: "",
-        payload: {
-          totalItems: 3,
-          datas: booksSampleData,
-          totalPages: 1,
-          currentPage: 1,
-        },
-      };
+  try {
+    const res = await axiosWithConfig.get(
+      "https://hells-kitchen.onrender.com/api/v1/books",
+    );
 
-      resolve(response);
-    }, 1000);
-  });
+    return res.data as Response<PayloadPagination<IBook[]>>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+export const getBooksForHomePage = async () => {
+  try {
+    const res = await axiosWithConfig.get(
+      "https://hells-kitchen.onrender.com/api/v1/books?limit=4",
+    );
+
+    return res.data as Response<PayloadPagination<IBook[]>>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
+};
+
+export const getDetailBook = async (id: string | undefined) => {
+  try {
+    const res = await axiosWithConfig.get(
+      `https://hells-kitchen.onrender.com/api/v1/books/${id}`,
+    );
+
+    return res.data as Response<IBook>;
+  } catch (error: any) {
+    throw Error(error.response.data.message);
+  }
 };

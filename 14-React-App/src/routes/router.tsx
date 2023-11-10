@@ -4,7 +4,7 @@ import Home from "@/pages/home/Home";
 import AuthLayout from "@/pages/auth/AuthLayout";
 import Book from "@/pages/books/Book";
 import BookDetail from "@/pages/books/BookDetail";
-import Profile from "@/pages/profile/Profile";
+import Profile from "@/pages/settings/Profile";
 
 export const router = createBrowserRouter([
   {

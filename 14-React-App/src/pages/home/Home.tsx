@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import heroImg from "../../assets/img//will-van-wingerden-dsvJgiBJTOs-unsplash.jpg";
-import { getBooks } from "@/utils/api/books/api";
-import { IBook } from "@/utils/api/books";
+import { IBook, getBooksForHomePage } from "@/utils/api/books";
 import BookCard from "@/components/BookCard";
 import { NavLink } from "react-router-dom";
+
+import heroImg from "../../assets/img//will-van-wingerden-dsvJgiBJTOs-unsplash.jpg";
 
 const Home = () => {
   useEffect(() => {
@@ -12,7 +12,7 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const result = await getBooks();
+      const result = await getBooksForHomePage();
       setBooks(result.payload.datas);
     } catch (error) {
       console.log(error);

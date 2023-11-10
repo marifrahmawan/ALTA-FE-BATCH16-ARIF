@@ -1,11 +1,28 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { booksSampleData } from "@/utils/api/books";
+import { IBook, getDetailBook } from "@/utils/api/books";
 import { Badge } from "@/components/ui/badge";
 
 import { NavLink, useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 const BookDetail = () => {
-  const bookId = useParams();
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetchData();
+  });
+
+  const fetchData = async () => {
+    try {
+      const result = await getDetailBook(id);
+      setBook(result.payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [book, setBook] = useState<IBook>();
 
   return (
     <div className="container h-full w-full">
@@ -15,28 +32,23 @@ const BookDetail = () => {
             <CardContent className="h-full w-full p-2">
               <div className="h-full">
                 <img
-                  src={booksSampleData[Number(bookId.id) - 1].cover_image}
-                  alt={booksSampleData[Number(bookId.id) - 1].title}
+                  src={book?.cover_image}
+                  alt={book?.title}
                   className="h-full w-full object-cover"
                 />
               </div>
             </CardContent>
           </Card>
         </div>
-        <div>
+        <div className="flex flex-col justify-center">
           <p className="text-[30px] font-medium">
-            {booksSampleData[Number(bookId.id) - 1].title} -{" "}
-            {booksSampleData[Number(bookId.id) - 1].author}
+            {book?.title} - {book?.author}
           </p>
-          <p className="mb-1 text-slate-500">
-            {booksSampleData[Number(bookId.id) - 1].isbn}
-          </p>
-          <NavLink to="/">
-            <Badge>{booksSampleData[Number(bookId.id) - 1].category}</Badge>
-          </NavLink>
-          <p className="mt-7 w-[70%] text-justify">
-            {booksSampleData[Number(bookId.id) - 1].description}
-          </p>
+          <p className="mb-1 text-slate-500">{book?.isbn}</p>
+          <NavLink to="/"><Badge>{book?.category}</Badge></NavLink>
+          <p className="mb-12 mt-7 w-[70%] text-justify">{book?.description}</p>
+
+          <Button className="w-[70%]">Borrow</Button>
         </div>
       </div>
     </div>
