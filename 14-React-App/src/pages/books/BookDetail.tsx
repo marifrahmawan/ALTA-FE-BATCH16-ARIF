@@ -10,17 +10,17 @@ const BookDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetchData();
-  });
+    const fetchData = async () => {
+      try {
+        const result = await getDetailBook(id);
+        setBook(result.payload);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const fetchData = async () => {
-    try {
-      const result = await getDetailBook(id);
-      setBook(result.payload);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    fetchData();
+  }, [id]);
 
   const [book, setBook] = useState<IBook>();
 
@@ -45,7 +45,9 @@ const BookDetail = () => {
             {book?.title} - {book?.author}
           </p>
           <p className="mb-1 text-slate-500">{book?.isbn}</p>
-          <NavLink to="/"><Badge>{book?.category}</Badge></NavLink>
+          <NavLink to="/">
+            <Badge>{book?.category}</Badge>
+          </NavLink>
           <p className="mb-12 mt-7 w-[70%] text-justify">{book?.description}</p>
 
           <Button className="w-[70%]">Borrow</Button>
