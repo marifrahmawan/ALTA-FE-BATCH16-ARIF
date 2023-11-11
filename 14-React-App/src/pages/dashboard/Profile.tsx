@@ -7,18 +7,14 @@ import { Label } from "@radix-ui/react-label";
 import SideBar from "../../components/SideBar";
 import { Eye, EyeOff } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import DashboardTitle from "./DashboardTitle";
 
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="container">
-      <div className="mb-10 w-full border-b border-slate-800 pb-3">
-        <p className="text-[35px] font-semibold leading-none">Dashboard</p>
-        <p className="font-medium text-slate-600">
-          Manage your account settings, email preferences and more.
-        </p>
-      </div>
+      <DashboardTitle />
       <div className="flex h-full w-full">
         <SideBar />
 
@@ -98,8 +94,10 @@ const Profile = () => {
               </div>
 
               <div className="flex w-[60%] gap-5">
-                <Button className="grow w-[50%]">Update</Button>
-                <Button className="grow w-[50%] bg-secondary-red dark:bg-secondary-red dark:text-white">Delete Profile</Button>
+                <Button className="w-[50%] grow">Update</Button>
+                <Button className="w-[50%] grow bg-secondary-red dark:bg-secondary-red dark:text-white">
+                  Delete Profile
+                </Button>
               </div>
             </div>
           </div>

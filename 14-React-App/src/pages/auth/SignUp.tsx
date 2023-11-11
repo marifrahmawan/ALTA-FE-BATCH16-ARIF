@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import {
   Card,
@@ -13,33 +13,79 @@ import { Button } from "@/components/ui/button";
 import { EyeIcon, EyeOffIcon, GithubIcon } from "lucide-react";
 
 import GoogleIcon from "@/components/ui/GoogleIcon";
+import { Textarea } from "@/components/ui/textarea";
 
 const SignUp = () => {
   const [showPass, setShowPass] = useState(false);
+
+  const registerHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const body = {
+      full_name: fullName,
+      email,
+      password,
+      address,
+      phone_number: phoneNumber,
+    };
+
+    console.log(body);
+
+    setFullName("");
+    setEmail("");
+    setPassword("");
+    setAddress("");
+    setPhoneNumber("");
+  };
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Sign Up</CardTitle>
-        <CardDescription>
-          Don't have an account yet?
-        </CardDescription>
+        <CardDescription>Don't have an account yet?</CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={registerHandler}>
           <div className="mb-6 grid gap-5">
             <div className="flex flex-col gap-2">
-              <Label htmlFor="email">Email Address</Label>
-              <Input placeholder="Email" type="email" />
+              <Label htmlFor="fullName">Full Name</Label>
+              <Input
+                id="fullName"
+                placeholder="Full Name"
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
             </div>
-            <div className="mb-6 flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="email">Email Address</Label>
+              <Input
+                id="email"
+                placeholder="Email"
+                type="email"
+                autoComplete="on"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
               <Label htmlFor="password">Password</Label>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2">
                 <Input
+                  id="password"
                   placeholder="Password"
+                  value={password}
                   type={showPass ? "text" : "password"}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <Input
+                  id="confirmPassword"
                   placeholder="Confirm Password"
                   type={showPass ? "text" : "password"}
                 />
@@ -55,7 +101,27 @@ const SignUp = () => {
                 </span>
               </div>
             </div>
-            <Button>Login</Button>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="address">Addres</Label>
+              <Textarea
+                id="address"
+                placeholder="Address"
+                autoComplete="off"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              ></Textarea>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="phoneNumber">Phone Number</Label>
+              <Input
+                id="phoneNumber"
+                placeholder="Phone Number"
+                type="text"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </div>
+            <Button type="submit">Sign Up</Button>
           </div>
         </form>
         <div className="relative mb-5">

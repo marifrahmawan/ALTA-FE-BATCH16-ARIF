@@ -64,9 +64,8 @@ const Navbar = () => {
               </DropdownMenuSub>
               <DropdownMenuSeparator />
               <NavLink to="/profile" className="w-full">
-                <DropdownMenuItem className="hover:cursor-pointer">Profile</DropdownMenuItem>
+                <DropdownMenuItem className="hover:cursor-pointer">Dashboard</DropdownMenuItem>
               </NavLink>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

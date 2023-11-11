@@ -34,7 +34,7 @@ const SignIn = () => {
             </div>
             <div className="mb-6 flex flex-col gap-2">
               <Label htmlFor="password">Password</Label>
-              <div className="flex items-center">
+              <div className="flex items-center gap-2">
                 <Input
                   placeholder="Password"
                   type={showPass ? "text" : "password"}
