@@ -1,5 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ModeToggle } from "@/components/ModeToggle";
+import { Toaster } from "@/components/ui/toaster";
+
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
@@ -20,7 +22,7 @@ const AuthLayout = () => {
       </div>
 
       <div className="min-h-screen w-full lg:w-1/2">
-        <div className="flex h-full w-full pt-16 lg:pt-24 justify-center">
+        <div className="flex h-full w-full justify-center pt-16 lg:pt-24">
           <div className="h-fit w-[450px]">
             <Tabs defaultValue={window.location.pathname} className="w-full">
               <TabsList className="grid w-full grid-cols-2">
@@ -38,6 +40,7 @@ const AuthLayout = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

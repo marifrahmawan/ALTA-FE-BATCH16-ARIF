@@ -14,22 +14,51 @@ import { EyeIcon, EyeOffIcon, GithubIcon } from "lucide-react";
 
 import GoogleIcon from "@/components/ui/GoogleIcon";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@radix-ui/react-toast";
+import { registerUser } from "@/utils/api/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const { toast } = useToast();
   const [showPass, setShowPass] = useState(false);
+  const navigate = useNavigate();
 
-  const registerHandler = (e: FormEvent<HTMLFormElement>) => {
+  const registerHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const body = {
-      full_name: fullName,
-      email,
-      password,
-      address,
-      phone_number: phoneNumber,
-    };
+    try {
+      const body = {
+        full_name: fullName,
+        email,
+        password,
+        address,
+        role: "user",
+        phone_number: phoneNumber,
+      };
 
-    console.log(body);
+      const res = await registerUser(body);
+
+      toast({
+        title: "Thank you !",
+        description: res?.message,
+      });
+
+      navigate("/signin");
+
+      setTimeout(() => {
+        return window.location.reload();
+      }, 3000);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error.toString(),
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      }
+    }
 
     setFullName("");
     setEmail("");

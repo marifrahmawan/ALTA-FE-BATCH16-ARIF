@@ -9,3 +9,7 @@ export type PayloadPagination<T = any> = {
   totalPages: number;
   currentPage: number;
 };
+
+export type errorMessage = {
+  message: string;
+};
