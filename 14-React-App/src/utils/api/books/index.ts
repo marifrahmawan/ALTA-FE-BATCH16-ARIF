@@ -1,5 +1,10 @@
 import { IBook } from "./types";
-import { getBooks, getBooksForHomePage,getDetailBook } from "./api";
+import {
+  getBooks,
+  getBooksForHomePage,
+  getDetailBook,
+  getNewBooks,
+} from "./api";
 
-export { getBooks, getBooksForHomePage, getDetailBook };
+export { getBooks, getBooksForHomePage, getDetailBook, getNewBooks };
 export type { IBook };

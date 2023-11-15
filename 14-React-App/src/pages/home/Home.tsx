@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IBook, getBooksForHomePage } from "@/utils/api/books";
+import { IBook, getBooksForHomePage, getNewBooks } from "@/utils/api/books";
 import BookCard from "@/components/BookCard";
 import { NavLink } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import heroImg from "../../assets/img//will-van-wingerden-dsvJgiBJTOs-unsplash.j
 const Home = () => {
   useEffect(() => {
     fetchData();
+    fetchNewBooks();
   }, []);
 
   const fetchData = async () => {
@@ -19,7 +20,17 @@ const Home = () => {
     }
   };
 
+  const fetchNewBooks = async () => {
+    try {
+      const result = await getNewBooks();
+      setNewBooks(result.payload.datas);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [books, setBooks] = useState<IBook[]>([]);
+  const [newBooks, setNewBooks] = useState<IBook[]>([]);
 
   return (
     <div className="container min-h-screen">
@@ -43,8 +54,8 @@ const Home = () => {
         </div>
       </div>
       <div className="w-full">
-        <div className="mb-3 flex justify-between">
-          <p>Recommended for you</p>
+        <div className="mb-3 flex justify-between items-end">
+          <p className="text-[22px] font-semibold">Recommended for you</p>
           <NavLink to="/books" className="underline">
             More &#8594;
           </NavLink>
@@ -56,15 +67,15 @@ const Home = () => {
           })}
         </div>
 
-        <div className=" mb-3 flex justify-between">
-          <p>New Release Book</p>
+        <div className=" mb-3 flex justify-between items-end">
+          <p className="text-[22px] font-semibold">New Release Book</p>
           <a href="./" className="underline">
             More &#8594;
           </a>
         </div>
 
         <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
-          {books.map((book) => {
+          {newBooks.map((book) => {
             return <BookCard key={book.id} data={book} />;
           })}
         </div>

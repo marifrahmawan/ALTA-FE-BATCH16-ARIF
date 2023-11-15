@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -20,10 +20,16 @@ import GoogleIcon from "@/components/ui/GoogleIcon";
 
 const SignIn = () => {
   const navigate = useNavigate();
+
   const [showPass, setShowPass] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formValid, setFormIsValid] = useState(false);
+
+  useEffect(() => {
+    setFormIsValid(email.includes("@") && password.length > 7);
+  }, [email, password]);
 
   const loginHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +44,8 @@ const SignIn = () => {
         title: "Thank you !",
         description: res?.message,
       });
+
+      localStorage.setItem("token", res!.payload.token);
 
       setTimeout(() => {
         return navigate("/books");
@@ -94,7 +102,9 @@ const SignIn = () => {
                 </span>
               </div>
             </div>
-            <Button type="submit">Sign In</Button>
+            <Button type="submit" disabled={!formValid}>
+              Sign In
+            </Button>
           </div>
         </form>
         <div className="relative mb-5">

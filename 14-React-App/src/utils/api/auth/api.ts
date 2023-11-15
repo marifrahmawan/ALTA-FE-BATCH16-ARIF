@@ -25,7 +25,7 @@ export const loginUser = async (body: ILoginUser) => {
       body,
     );
 
-    return res.data as Response;
+    return res.data as Response<{ token: string }>;
   } catch (error) {
     if (error instanceof AxiosError) {
       throw Error(error.response?.data.message);

@@ -6,6 +6,7 @@ import Book from "@/pages/books/Book";
 import BookDetail from "@/pages/books/BookDetail";
 import Profile from "@/pages/dashboard/Profile";
 import ListBook from "@/pages/dashboard/ListBook";
+import ProtectedRoutes from "./protected-routes";
 
 export const router = createBrowserRouter([
   {
@@ -29,22 +30,33 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: "profile",
-        element: <Profile />,
-      },
-      {
-        path: "book-list",
-        element: <ListBook />,
-      },
     ],
   },
   {
-    path: "/signin",
-    element: <AuthLayout />,
-  },
-  {
-    path: "/signup",
-    element: <AuthLayout />,
+    element: <ProtectedRoutes />,
+    children: [
+      {
+        path: "/",
+        element: <Layout />,
+        children: [
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+          {
+            path: "book-list",
+            element: <ListBook />,
+          },
+        ],
+      },
+      {
+        path: "/signin",
+        element: <AuthLayout />,
+      },
+      {
+        path: "/signup",
+        element: <AuthLayout />,
+      },
+    ],
   },
 ]);
