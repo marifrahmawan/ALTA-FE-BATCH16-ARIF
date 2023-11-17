@@ -9,10 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import EditBookDialog from "@/components/EditBookDialog";
 import DeleteBookDialog from "@/components/DeleteBookDialog";
 import { useEffect, useState } from "react";
 import { IBorrowedBooks, getBorrowedBooks } from "@/utils/api/borrow";
+import { format } from "date-fns";
+import EditBorrowedBook from "@/components/EditBorrowedBookDialog";
 
 const History = () => {
   const [borrowedBooks, setBorrowedBooks] = useState<IBorrowedBooks[]>();
@@ -21,7 +22,7 @@ const History = () => {
     const fetchData = async () => {
       const res = await getBorrowedBooks();
 
-      setBorrowedBooks(res.payload.datas);
+      setBorrowedBooks(res?.payload.datas);
     };
 
     fetchData();
@@ -35,9 +36,9 @@ const History = () => {
         <SideBar />
         <div className="flex grow flex-col">
           <div className="mb-9 w-full border-b pb-5">
-            <p className="text-[20px] font-semibold">Book List</p>
+            <p className="text-[20px] font-semibold">History Borrow</p>
             <p className="text-[14px] font-medium text-slate-600">
-              Manage books in Library
+              Manage you borrowed Books
             </p>
           </div>
 
@@ -62,13 +63,33 @@ const History = () => {
                       <TableCell className="font-medium">{i + 1}</TableCell>
                       <TableCell>{borrowedBook.user.full_name}</TableCell>
                       <TableCell>{borrowedBook.book.title}</TableCell>
-                      <TableCell>{borrowedBook.borrow_date.split('T')[0]}</TableCell>
-                      <TableCell>{borrowedBook.due_date.split('T')[0]}</TableCell>
-                      <TableCell>{borrowedBook.return_date?.split('T')[0]}</TableCell>
+                      <TableCell>
+                        {format(
+                          new Date(borrowedBook.borrow_date),
+                          "MMMM dd, yyyy",
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {format(
+                          new Date(borrowedBook.due_date),
+                          "MMMM dd, yyyy",
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {borrowedBook.return_date
+                          ? format(
+                              new Date(borrowedBook.return_date),
+                              "MMMM dd, yyyy",
+                            )
+                          : ""}
+                      </TableCell>
                       <TableCell className="text-right">
-                        <EditBookDialog
+                        <EditBorrowedBook
                           key={borrowedBook.id}
-                          data={borrowedBook}
+                          id_borrow={borrowedBook.id}
+                          borrow_date={borrowedBook.borrow_date}
+                          due_date={borrowedBook.due_date}
+                          return_date={borrowedBook.return_date}
                         />
                       </TableCell>
                       <TableCell className="text-right">

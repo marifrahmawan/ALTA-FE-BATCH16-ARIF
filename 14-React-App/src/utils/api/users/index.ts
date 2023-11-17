@@ -1,5 +1,5 @@
 import { IProfile } from "./types";
-import { getUserData } from "./api";
+import { getUserData, updateUserProfile } from "./api";
 
-export { getUserData };
+export { getUserData, updateUserProfile };
 export type { IProfile };

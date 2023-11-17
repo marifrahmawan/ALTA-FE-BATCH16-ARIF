@@ -1,5 +1,5 @@
-import { IBorrowedBooks } from "./types";
-import { getBorrowedBooks } from "./api";
+import { IBorrowedBooks, IEditBorrowBook, editBorrowBookSchema } from "./types";
+import { getBorrowedBooks, editBorrowedBook } from "./api";
 
-export { getBorrowedBooks };
-export type { IBorrowedBooks };
+export { getBorrowedBooks, editBorrowedBook, editBorrowBookSchema };
+export type { IBorrowedBooks, IEditBorrowBook };

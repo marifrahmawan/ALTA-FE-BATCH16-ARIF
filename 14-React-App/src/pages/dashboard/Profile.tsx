@@ -8,9 +8,14 @@ import SideBar from "../../components/SideBar";
 import { Eye, EyeOff } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import DashboardTitle from "./DashboardTitle";
-import { IProfile, getUserData } from "@/utils/api/users";
+import { IProfile, getUserData, updateUserProfile } from "@/utils/api/users";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { Form } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { IRegisterUser, registerSchema } from "@/utils/api/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import CustomFormField from "@/components/CustomFormField";
 
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,6 +45,47 @@ const Profile = () => {
     }
   };
 
+  const updateProfileHandler = async (values: IRegisterUser) => {
+    try {
+      const res = await updateUserProfile(values);
+
+      toast({
+        title: "Completed",
+        description: res?.message,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: error.toString(),
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      }
+    }
+  };
+
+  const form = useForm<IRegisterUser>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      full_name: "",
+      email: "",
+      password: "",
+      repassword: "",
+      address: "",
+      phone_number: "",
+    },
+    values: {
+      full_name: profileData ? profileData.full_name : "",
+      email: profileData ? profileData.email : "",
+      password: "",
+      repassword: "",
+      address: profileData ? profileData.address : "",
+      phone_number: profileData ? profileData.phone_number : "",
+      role: profileData ? profileData.role : "",
+    },
+  });
+
   return (
     <div className="container">
       <DashboardTitle />
@@ -63,91 +109,147 @@ const Profile = () => {
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
-            <div className="flex grow flex-col gap-5">
-              <div className="flex w-full flex-col">
-                <Label className="mb-1">Fullname</Label>
-                <Input
-                  type="text"
-                  className="mb-2 h-8 w-[250px] rounded-md"
-                  defaultValue={profileData?.full_name}
-                />
-                <p className="text-[12px]">
-                  This is your public display name. It can be your real name or
-                  a pseudonym. You can only change this once every 30 days.
-                </p>
-              </div>
-              <div className="flex w-full flex-col">
-                <Label className="mb-1">Email</Label>
-                <Input
-                  type="email"
-                  className="mb-2 h-8 w-[250px] rounded-md"
-                  defaultValue={profileData?.email}
-                />
-                <p className="text-[12px]">
-                  You can manage verified email addresses in your email
-                  settings.
-                </p>
-              </div>
-              <div className="flex w-full flex-col">
-                <Label className="mb-1">Password</Label>
-                <div className="flex w-full items-center gap-2">
-                  <Input
-                    type={`${showPassword ? "text" : "password"}`}
-                    placeholder="Password"
-                    className="mb-2 h-8 w-[250px] rounded-md"
-                  />
-                  <Input
-                    type={`${showPassword ? "text" : "password"}`}
-                    placeholder="Re-enter Password"
-                    className="mb-2 h-8 w-[250px] rounded-md"
-                  />
-                  {showPassword ? (
-                    <Eye
-                      className="mb-2 h-8 hover:cursor-pointer"
-                      onClick={() => setShowPassword(!showPassword)}
-                    />
-                  ) : (
-                    <EyeOff
-                      className="mb-2 h-8 hover:cursor-pointer"
-                      onClick={() => setShowPassword(!showPassword)}
-                    />
-                  )}
-                </div>
-              </div>
-              <div className="flex w-full flex-col">
-                <Label className="mb-1">Address</Label>
-                <Textarea className="w-[510px]" value={profileData?.address} />
-              </div>
-              <div className="flex w-full flex-col">
-                <Label className="mb-1">Phone Number</Label>
-                <Input
-                  type="text"
-                  className="mb-2 h-8 w-[250px] rounded-md"
-                  defaultValue={profileData?.phone_number}
-                />
-                <p className="text-[12px]">
-                  We need your phone number to activate two-factor
-                  authentication.
-                </p>
-              </div>
-              <div className="flex w-full flex-col">
-                <Label className="mb-1">Picture</Label>
-                <Input
-                  type="file"
-                  className="mb-2 w-[250px] rounded-md dark:bg-slate-700 dark:text-white"
-                />
-                <p className="text-[12px] ">
-                  You can change your profile picture.
-                </p>
-              </div>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(updateProfileHandler)}>
+                <div className="flex grow flex-col gap-5">
+                  <CustomFormField
+                    id="full_name"
+                    name="full_name"
+                    label="Full Name"
+                    control={form.control}
+                    description="This is your public display name. It can be your real name or a pseudonym. You can only change this once every 30 days."
+                  >
+                    {(field) => (
+                      <Input
+                        id="full_name"
+                        className="mb-2 h-8 w-[250px] rounded-md"
+                        placeholder="Full Name"
+                        type="text"
+                        {...field}
+                      />
+                    )}
+                  </CustomFormField>
 
-              <div className="flex w-[60%] gap-5">
-                <Button className="w-[50%] grow">Update</Button>
-                <Button className="w-[50%] grow bg-secondary-red dark:bg-secondary-red dark:text-white">
-                  Delete Profile
-                </Button>
-              </div>
-            </div>
+                  <CustomFormField
+                    id="email"
+                    name="email"
+                    label="Email"
+                    control={form.control}
+                    description="You can manage verified email addresses in your email settings."
+                  >
+                    {(field) => (
+                      <Input
+                        id="email"
+                        className="mb-2 h-8 w-[250px] rounded-md"
+                        placeholder="Email"
+                        type="email"
+                        {...field}
+                      />
+                    )}
+                  </CustomFormField>
+
+                  <div className="flex gap-2">
+                    <CustomFormField
+                      id="password"
+                      name="password"
+                      label="Password"
+                      control={form.control}
+                    >
+                      {(field) => (
+                        <Input
+                          id="password"
+                          className="mb-2 h-8 w-[250px] rounded-md"
+                          placeholder="Password"
+                          type={showPassword ? "text" : "password"}
+                          {...field}
+                        />
+                      )}
+                    </CustomFormField>
+
+                    <CustomFormField
+                      id="repassword"
+                      name="repassword"
+                      label="Re-Password"
+                      control={form.control}
+                    >
+                      {(field) => (
+                        <div className="flex gap-2">
+                          <Input
+                            id="repassword"
+                            className="mb-2 h-8 w-[250px] rounded-md"
+                            placeholder="Re-Password"
+                            type={showPassword ? "text" : "password"}
+                            {...field}
+                          />
+                          <span>
+                            {showPassword ? (
+                              <Eye
+                                className="mb-2 h-8 hover:cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                              />
+                            ) : (
+                              <EyeOff
+                                className="mb-2 h-8 hover:cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                              />
+                            )}
+                          </span>
+                        </div>
+                      )}
+                    </CustomFormField>
+                  </div>
+
+                  <CustomFormField
+                    id="address"
+                    name="address"
+                    label="Address"
+                    control={form.control}
+                  >
+                    {(field) => <Textarea className="w-[510px]" {...field} />}
+                  </CustomFormField>
+
+                  <CustomFormField
+                    id="phone_number"
+                    name="phone_number"
+                    label="Phone Number"
+                    description=" We need your phone number to activate two-factor authentication."
+                    control={form.control}
+                  >
+                    {(field) => (
+                      <Input
+                        type="text"
+                        className="mb-2 h-8 w-[250px] rounded-md"
+                        {...field}
+                      />
+                    )}
+                  </CustomFormField>
+
+                  <CustomFormField
+                    id="profile_picture"
+                    name=""
+                    label="Profile Picture"
+                    control={form.control}
+                  >
+                    {(field) => (
+                      <Input
+                        type="file"
+                        className="mb-2 w-[250px] rounded-md"
+                        {...field}
+                      />
+                    )}
+                  </CustomFormField>
+
+                  <div className="flex w-[60%] gap-5">
+                    <Button type="submit" className="w-[50%] grow">
+                      Update
+                    </Button>
+                    <Button className="w-[50%] grow bg-secondary-red dark:bg-secondary-red dark:text-white">
+                      Delete Profile
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            </Form>
           </div>
         </div>
       </div>
