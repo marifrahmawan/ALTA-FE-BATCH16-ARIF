@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -10,18 +10,17 @@ import {
 } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import CustomFormField from "@/components/CustomFormField";
 
 import { EyeIcon, EyeOffIcon, GithubIcon } from "lucide-react";
 import GoogleIcon from "@/components/ui/GoogleIcon";
 
-import { ILoginUser, loginSchema, loginUser } from "@/utils/api/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import CustomFormField from "@/components/CustomFormField";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ILoginUser, loginSchema, loginUser } from "@/utils/api/auth";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -40,7 +39,7 @@ const SignIn = () => {
       localStorage.setItem("token", res!.payload.token);
 
       setTimeout(() => {
-        return navigate("/books");
+        return navigate("/");
       }, 1500);
     } catch (error) {
       if (error instanceof Error) {

@@ -69,7 +69,7 @@ const Profile = () => {
                 <Input
                   type="text"
                   className="mb-2 h-8 w-[250px] rounded-md"
-                  value={profileData?.full_name}
+                  defaultValue={profileData?.full_name}
                 />
                 <p className="text-[12px]">
                   This is your public display name. It can be your real name or
@@ -81,7 +81,7 @@ const Profile = () => {
                 <Input
                   type="email"
                   className="mb-2 h-8 w-[250px] rounded-md"
-                  value={profileData?.email}
+                  defaultValue={profileData?.email}
                 />
                 <p className="text-[12px]">
                   You can manage verified email addresses in your email
@@ -123,7 +123,7 @@ const Profile = () => {
                 <Input
                   type="text"
                   className="mb-2 h-8 w-[250px] rounded-md"
-                  value={profileData?.phone_number}
+                  defaultValue={profileData?.phone_number}
                 />
                 <p className="text-[12px]">
                   We need your phone number to activate two-factor

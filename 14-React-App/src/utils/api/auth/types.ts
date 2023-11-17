@@ -19,7 +19,7 @@ export const registerSchema = z
   })
   .refine((data) => data.password === data.repassword, {
     message: `Password don't match`,
-    path: ["password"],
+    path: ["repassword"],
   });
 
 export type ILoginUser = z.infer<typeof loginSchema>;
