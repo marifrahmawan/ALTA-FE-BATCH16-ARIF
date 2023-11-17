@@ -7,3 +7,4 @@ export interface IProfile {
   address: string;
   phone_number: string;
 }
+

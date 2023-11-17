@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -8,37 +8,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import { loginUser } from "@/utils/api/auth/api";
 
 import { EyeIcon, EyeOffIcon, GithubIcon } from "lucide-react";
 import GoogleIcon from "@/components/ui/GoogleIcon";
+
+import { ILoginUser, loginSchema, loginUser } from "@/utils/api/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import CustomFormField from "@/components/CustomFormField";
 
 const SignIn = () => {
   const navigate = useNavigate();
 
   const [showPass, setShowPass] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [formValid, setFormIsValid] = useState(false);
-
-  useEffect(() => {
-    setFormIsValid(email.includes("@") && password.length > 7);
-  }, [email, password]);
-
-  const loginHandler = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const body = {
-      email,
-      password,
-    };
+  const loginHandler = async (values: ILoginUser) => {
     try {
-      const res = await loginUser(body);
+      const res = await loginUser(values);
 
       toast({
         title: "Thank you !",
@@ -49,7 +41,7 @@ const SignIn = () => {
 
       setTimeout(() => {
         return navigate("/books");
-      }, 2000);
+      }, 1500);
     } catch (error) {
       if (error instanceof Error) {
         toast({
@@ -62,6 +54,14 @@ const SignIn = () => {
     }
   };
 
+  const form = useForm<ILoginUser>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   return (
     <Card>
       <CardHeader>
@@ -69,44 +69,57 @@ const SignIn = () => {
         <CardDescription>Enter your email and password</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={loginHandler}>
-          <div className="mb-6 grid gap-5">
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="email">Email Address</Label>
-              <Input
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(loginHandler)}>
+            <div className="mb-6 grid gap-5">
+              <CustomFormField
                 id="email"
-                placeholder="Email"
-                type="email"
-                autoComplete="on"
-                onChange={(e) => setEmail(e.target.value)}
-              />
+                control={form.control}
+                name="email"
+                label="Email Address"
+              >
+                {(field) => (
+                  <Input
+                    id="email"
+                    placeholder="Email"
+                    type="email"
+                    autoComplete="on"
+                    {...field}
+                  />
+                )}
+              </CustomFormField>
+
+              <CustomFormField
+                id="password"
+                control={form.control}
+                name="password"
+                label="Password"
+              >
+                {(field) => (
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id="password"
+                      placeholder="Password"
+                      type={showPass ? "text" : "password"}
+                      {...field}
+                    />
+                    <span
+                      className="h-full px-1 hover:cursor-pointer dark:border-slate-800"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {showPass ? (
+                        <EyeIcon className="h-full" />
+                      ) : (
+                        <EyeOffIcon className="h-full" />
+                      )}
+                    </span>
+                  </div>
+                )}
+              </CustomFormField>
+              <Button type="submit">Sign In</Button>
             </div>
-            <div className="mb-6 flex flex-col gap-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="flex items-center gap-2">
-                <Input
-                  id="password"
-                  placeholder="Password"
-                  type={showPass ? "text" : "password"}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span
-                  className="h-full px-1 hover:cursor-pointer dark:border-slate-800"
-                  onClick={() => setShowPass(!showPass)}
-                >
-                  {showPass ? (
-                    <EyeIcon className="h-full" />
-                  ) : (
-                    <EyeOffIcon className="h-full" />
-                  )}
-                </span>
-              </div>
-            </div>
-            <Button type="submit" disabled={!formValid}>
-              Sign In
-            </Button>
-          </div>
-        </form>
+          </form>
+        </Form>
         <div className="relative mb-5">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />

@@ -7,6 +7,7 @@ import BookDetail from "@/pages/books/BookDetail";
 import Profile from "@/pages/dashboard/Profile";
 import ListBook from "@/pages/dashboard/ListBook";
 import ProtectedRoutes from "./protected-routes";
+import History from "@/pages/dashboard/History";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
           {
             path: "book-list",
             element: <ListBook />,
+          },
+          {
+            path: "history-borrow",
+            element: <History />,
           },
         ],
       },

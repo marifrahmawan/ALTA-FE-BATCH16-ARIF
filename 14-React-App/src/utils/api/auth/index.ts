@@ -1,5 +1,10 @@
-import { registerUser } from "./api";
-import { IRegisterUser, ILoginUser } from "./types";
+import { registerUser, loginUser } from "./api";
+import {
+  IRegisterUser,
+  ILoginUser,
+  loginSchema,
+  registerSchema,
+} from "./types";
 
-export { registerUser };
+export { registerUser, loginUser, loginSchema, registerSchema };
 export type { IRegisterUser, ILoginUser };
