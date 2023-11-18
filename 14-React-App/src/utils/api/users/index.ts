@@ -1,5 +1,5 @@
-import { IProfile } from "./types";
+import { IProfile, editUserProfileSchema, IEditUserProfile } from "./types";
 import { getUserData, updateUserProfile } from "./api";
 
-export { getUserData, updateUserProfile };
-export type { IProfile };
+export { getUserData, updateUserProfile, editUserProfileSchema };
+export type { IProfile, IEditUserProfile };

@@ -2,6 +2,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuSub,
@@ -14,12 +15,14 @@ import { useTheme } from "@/utils/theme-provider";
 import { Computer, Moon, Sun } from "lucide-react";
 import { Input } from "./ui/input";
 import { NavLink } from "react-router-dom";
+import { useToken } from "@/utils/contexts/token";
 
 const Navbar = () => {
   const { setTheme } = useTheme();
+  const { token, user, changeToken } = useToken();
 
   return (
-    <header className="sticky left-0 top-0 z-20  mb-5 h-16 w-full bg-white dark:bg-primary-black">
+    <header className="sticky left-0 top-0 z-10  mb-5 h-16 w-full bg-white dark:bg-primary-black">
       <div className="container flex h-full items-center justify-between">
         <NavLink to="/" className="dark:text-white">
           <p className="text-[20px] font-semibold leading-4">
@@ -36,11 +39,15 @@ const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src={user.profile_picture} />
+                <AvatarFallback>BQ</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-52">
+              {token && (
+                <DropdownMenuLabel>Hi, {user.full_name}</DropdownMenuLabel>
+              )}
+
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   <span>Theme</span>
@@ -63,22 +70,49 @@ const Navbar = () => {
                 </DropdownMenuPortal>
               </DropdownMenuSub>
               <DropdownMenuSeparator />
-              <NavLink to="/profile" className="w-full">
-                <DropdownMenuItem className="hover:cursor-pointer">
-                  Dashboard
-                </DropdownMenuItem>
-              </NavLink>
-              <NavLink to="/signin" className="w-full">
-                <DropdownMenuItem className="hover:cursor-pointer">
-                  Sign In
-                </DropdownMenuItem>
-              </NavLink>
-              <NavLink to="/signup" className="w-full">
-                <DropdownMenuItem className="hover:cursor-pointer">
-                  Sign Up
-                </DropdownMenuItem>
-              </NavLink>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              {token && (
+                <>
+                  <NavLink to="/profile" className="w-full">
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      Profile
+                    </DropdownMenuItem>
+                  </NavLink>
+                  <NavLink to="/book-list" className="w-full">
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      Book List
+                    </DropdownMenuItem>
+                  </NavLink>
+                  <NavLink to="/history-borrow" className="w-full">
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      History Borrow
+                    </DropdownMenuItem>
+                  </NavLink>
+                </>
+              )}
+              {!token ? (
+                <>
+                  <NavLink to="/signin" className="w-full">
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      Sign In
+                    </DropdownMenuItem>
+                  </NavLink>
+                  <NavLink to="/signup" className="w-full">
+                    <DropdownMenuItem className="hover:cursor-pointer">
+                      Sign Up
+                    </DropdownMenuItem>
+                  </NavLink>
+                </>
+              ) : (
+                <>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="hover:cursor-pointer"
+                    onClick={() => changeToken("")}
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

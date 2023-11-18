@@ -41,7 +41,7 @@ const CustomFormField = <T extends FieldValues>(props: ChildrenProps<T>) => {
         <FormItem>
           <FormLabel htmlFor={id}>{label}</FormLabel>
           <FormControl>{children(field)}</FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
+          {description && <FormDescription className="text-[12px]">{description}</FormDescription>}
           <FormMessage />
         </FormItem>
       )}

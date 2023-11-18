@@ -6,7 +6,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Pencil } from "lucide-react";
+import { Loader2, Pencil } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
@@ -88,12 +88,14 @@ const EditBorrowedBook = (props: IProps) => {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="mb-3">Edit Book</DialogTitle>
+            <DialogTitle className="mb-3 dark:text-white">
+              Edit Book
+            </DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(editBorrowBookHandler)}
-              className="flex flex-col gap-5"
+              className="flex flex-col gap-5 dark:text-white"
             >
               <FormField
                 control={form.control}
@@ -215,7 +217,19 @@ const EditBorrowedBook = (props: IProps) => {
                 )}
               />
 
-              <Button type="submit">Save</Button>
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading
+                  </>
+                ) : (
+                  "Save Changes"
+                )}
+              </Button>
             </form>
           </Form>
         </DialogContent>

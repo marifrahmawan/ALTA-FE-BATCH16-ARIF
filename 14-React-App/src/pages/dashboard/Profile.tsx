@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Label } from "@radix-ui/react-label";
-import SideBar from "../../components/SideBar";
-import { Eye, EyeOff } from "lucide-react";
-import { Textarea } from "@/components/ui/textarea";
-import DashboardTitle from "./DashboardTitle";
-import { IProfile, getUserData, updateUserProfile } from "@/utils/api/users";
-import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
-import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { IRegisterUser, registerSchema } from "@/utils/api/auth";
+import { Form } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
+
+import SideBar from "../../components/SideBar";
+import { Textarea } from "@/components/ui/textarea";
+
+import {
+  IEditUserProfile,
+  IProfile,
+  editUserProfileSchema,
+  getUserData,
+  updateUserProfile,
+} from "@/utils/api/users";
+
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+
+import DashboardTitle from "./DashboardTitle";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomFormField from "@/components/CustomFormField";
 
@@ -24,28 +32,27 @@ const Profile = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    fetchProfileData();
-  }, []);
+    const fetchProfileData = async () => {
+      try {
+        const res = await getUserData();
 
-  const fetchProfileData = async () => {
-    try {
-      const res = await getUserData();
-
-      setProfileData(res?.payload);
-    } catch (error) {
-      console.log(error);
-      if (error instanceof Error) {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: error.toString(),
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
+        setProfileData(res?.payload);
+      } catch (error) {
+        console.log(error);
+        if (error instanceof Error) {
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: error.toString(),
+            action: <ToastAction altText="Try again">Try again</ToastAction>,
+          });
+        }
       }
-    }
-  };
+    };
+    fetchProfileData();
+  }, [toast]);
 
-  const updateProfileHandler = async (values: IRegisterUser) => {
+  const updateProfileHandler = async (values: IEditUserProfile) => {
     try {
       const res = await updateUserProfile(values);
 
@@ -65,8 +72,8 @@ const Profile = () => {
     }
   };
 
-  const form = useForm<IRegisterUser>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<IEditUserProfile>({
+    resolver: zodResolver(editUserProfileSchema),
     defaultValues: {
       full_name: "",
       email: "",
@@ -74,6 +81,7 @@ const Profile = () => {
       repassword: "",
       address: "",
       phone_number: "",
+      profile_picture: "",
     },
     values: {
       full_name: profileData ? profileData.full_name : "",
@@ -83,6 +91,7 @@ const Profile = () => {
       address: profileData ? profileData.address : "",
       phone_number: profileData ? profileData.phone_number : "",
       role: profileData ? profileData.role : "",
+      profile_picture: "",
     },
   });
 
@@ -158,7 +167,7 @@ const Profile = () => {
                       {(field) => (
                         <Input
                           id="password"
-                          className="mb-2 h-8 w-[250px] rounded-md"
+                          className="h-8 w-[250px] rounded-md"
                           placeholder="Password"
                           type={showPassword ? "text" : "password"}
                           {...field}
@@ -176,7 +185,7 @@ const Profile = () => {
                         <div className="flex gap-2">
                           <Input
                             id="repassword"
-                            className="mb-2 h-8 w-[250px] rounded-md"
+                            className="h-8 w-[250px] rounded-md"
                             placeholder="Re-Password"
                             type={showPassword ? "text" : "password"}
                             {...field}
@@ -184,12 +193,12 @@ const Profile = () => {
                           <span>
                             {showPassword ? (
                               <Eye
-                                className="mb-2 h-8 hover:cursor-pointer"
+                                className="h-8 hover:cursor-pointer"
                                 onClick={() => setShowPassword(!showPassword)}
                               />
                             ) : (
                               <EyeOff
-                                className="mb-2 h-8 hover:cursor-pointer"
+                                className="h-8 hover:cursor-pointer"
                                 onClick={() => setShowPassword(!showPassword)}
                               />
                             )}
@@ -226,7 +235,7 @@ const Profile = () => {
 
                   <CustomFormField
                     id="profile_picture"
-                    name=""
+                    name="profile_picture"
                     label="Profile Picture"
                     control={form.control}
                   >
@@ -240,8 +249,20 @@ const Profile = () => {
                   </CustomFormField>
 
                   <div className="flex w-[60%] gap-5">
-                    <Button type="submit" className="w-[50%] grow">
-                      Update
+                    <Button
+                      type="submit"
+                      className="w-[50%] grow"
+                      disabled={form.formState.isSubmitting}
+                      aria-disabled={form.formState.isSubmitting}
+                    >
+                      {form.formState.isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                          Loading
+                        </>
+                      ) : (
+                        "Update"
+                      )}
                     </Button>
                     <Button className="w-[50%] grow bg-secondary-red dark:bg-secondary-red dark:text-white">
                       Delete Profile

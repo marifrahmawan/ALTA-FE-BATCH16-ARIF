@@ -15,32 +15,31 @@ import { toast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import CustomFormField from "@/components/CustomFormField";
 
-import { EyeIcon, EyeOffIcon, GithubIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, GithubIcon, Loader2 } from "lucide-react";
 import GoogleIcon from "@/components/ui/GoogleIcon";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ILoginUser, loginSchema, loginUser } from "@/utils/api/auth";
+import { useToken } from "@/utils/contexts/token";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { changeToken } = useToken();
 
   const [showPass, setShowPass] = useState(false);
 
   const loginHandler = async (values: ILoginUser) => {
     try {
       const res = await loginUser(values);
+      changeToken(res?.payload.token);
 
       toast({
         title: "Thank you !",
         description: res?.message,
       });
 
-      localStorage.setItem("token", res!.payload.token);
-
-      setTimeout(() => {
-        return navigate("/");
-      }, 1500);
+      return navigate("/");
     } catch (error) {
       if (error instanceof Error) {
         toast({
@@ -115,7 +114,19 @@ const SignIn = () => {
                   </div>
                 )}
               </CustomFormField>
-              <Button type="submit">Sign In</Button>
+              <Button
+                type="submit"
+                disabled={form.formState.isSubmitting}
+                aria-disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading
+                  </>
+                ) : (
+                  "Login"
+                )}
+              </Button>
             </div>
           </form>
         </Form>

@@ -1,8 +1,7 @@
 import { Response } from "@/utils/types/types";
 import axiosWithConfig from "../axiosWithConfig";
-import { IProfile } from ".";
+import { IEditUserProfile, IProfile } from ".";
 import { AxiosError } from "axios";
-import { IRegisterUser } from "../auth";
 
 export const getUserData = async () => {
   try {
@@ -19,7 +18,7 @@ export const getUserData = async () => {
   }
 };
 
-export const updateUserProfile = async (body: IRegisterUser) => {
+export const updateUserProfile = async (body: IEditUserProfile) => {
   try {
     const res = await axiosWithConfig.put(
       "https://hells-kitchen.onrender.com/api/v1/users",
