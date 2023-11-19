@@ -14,12 +14,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "@/utils/theme-provider";
 import { Computer, Moon, Sun } from "lucide-react";
 import { Input } from "./ui/input";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useToken } from "@/utils/contexts/token";
 
 const Navbar = () => {
   const { setTheme } = useTheme();
   const { token, user, changeToken } = useToken();
+  const navigate = useNavigate();
 
   return (
     <header className="sticky left-0 top-0 z-10  mb-5 h-16 w-full bg-white dark:bg-primary-black">
@@ -77,16 +78,20 @@ const Navbar = () => {
                       Profile
                     </DropdownMenuItem>
                   </NavLink>
-                  <NavLink to="/book-list" className="w-full">
-                    <DropdownMenuItem className="hover:cursor-pointer">
-                      Book List
-                    </DropdownMenuItem>
-                  </NavLink>
-                  <NavLink to="/history-borrow" className="w-full">
-                    <DropdownMenuItem className="hover:cursor-pointer">
-                      History Borrow
-                    </DropdownMenuItem>
-                  </NavLink>
+                  {user.role === "admin" && (
+                    <>
+                      <NavLink to="/book-list" className="w-full">
+                        <DropdownMenuItem className="hover:cursor-pointer">
+                          Book List
+                        </DropdownMenuItem>
+                      </NavLink>
+                      <NavLink to="/history-borrow" className="w-full">
+                        <DropdownMenuItem className="hover:cursor-pointer">
+                          History Borrow
+                        </DropdownMenuItem>
+                      </NavLink>
+                    </>
+                  )}
                 </>
               )}
               {!token ? (
@@ -107,7 +112,10 @@ const Navbar = () => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="hover:cursor-pointer"
-                    onClick={() => changeToken("")}
+                    onClick={() => {
+                      changeToken("");
+                      return navigate("/");
+                    }}
                   >
                     Logout
                   </DropdownMenuItem>

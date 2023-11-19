@@ -6,7 +6,7 @@ export interface IBook {
   isbn: string;
   category: string;
   description: string;
-  cover_image: string;
+  cover_image?: string;
 }
 
 export type BookContextType = {

@@ -35,13 +35,12 @@ const tokenContext = createContext<IContext>(contextValue);
 export const TokenProvider = ({ children }: Readonly<IProps>) => {
   const { toast } = useToast();
 
-  const [token, setToken] = useState(localStorage.getItem("getItem") ?? "");
+  const [token, setToken] = useState(localStorage.getItem("token") ?? "");
   const [user, setUser] = useState<Partial<IProfile>>({});
 
   useEffect(() => {
     setAxiosConfig(token);
     token !== "" && fetchUserProfile();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   axiosWithConfig.interceptors.response.use(
@@ -68,8 +67,7 @@ export const TokenProvider = ({ children }: Readonly<IProps>) => {
         });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, toast]);
+  }, [token]);
 
   const changeToken = useCallback(
     (token?: string) => {
@@ -83,8 +81,7 @@ export const TokenProvider = ({ children }: Readonly<IProps>) => {
         setUser({});
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [token],
+    [token]
   );
 
   const tokenContextValue = useMemo(
