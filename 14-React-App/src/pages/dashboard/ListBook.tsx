@@ -11,8 +11,8 @@ import SideBar from "@/components/SideBar";
 import DashboardTitle from "./DashboardTitle";
 import { useEffect, useState } from "react";
 import { IBook, getBooks } from "@/utils/api/books";
-import EditBookDialog from "@/components/EditBookDialog";
-import DeleteBookDialog from "@/components/DeleteBookDialog";
+import EditBookDialog from "@/pages/books/EditBookDialog";
+import DeleteBookDialog from "@/pages/books/DeleteBookDialog";
 import { toast } from "@/components/ui/use-toast";
 
 const ListBook = () => {

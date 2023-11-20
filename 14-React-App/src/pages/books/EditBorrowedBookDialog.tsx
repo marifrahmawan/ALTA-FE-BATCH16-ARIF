@@ -37,8 +37,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ToastAction } from "./ui/toast";
-import { toast } from "./ui/use-toast";
+import { ToastAction } from "../../components/ui/toast";
+import { toast } from "../../components/ui/use-toast";
 
 interface IProps {
   id_borrow: number;

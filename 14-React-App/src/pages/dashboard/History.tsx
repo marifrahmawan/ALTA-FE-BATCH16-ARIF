@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 
-import EditBorrowedBook from "@/components/EditBorrowedBookDialog";
-import DeleteBookDialog from "@/components/DeleteBookDialog";
+import EditBorrowedBook from "@/pages/books/EditBorrowedBookDialog";
+import DeleteBookDialog from "@/pages/books/DeleteBookDialog";
 import DashboardTitle from "./DashboardTitle";
 import SideBar from "@/components/SideBar";
 import {

@@ -13,17 +13,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader2, Pencil } from "lucide-react";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import { Input } from "../../components/ui/input";
+import { Textarea } from "../../components/ui/textarea";
+import { Button } from "../../components/ui/button";
 import { IEditBook, updateBookData } from "@/utils/api/books";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editBookSchema } from "@/utils/api/books/types";
-import { Form } from "./ui/form";
-import CustomFormField from "./CustomFormField";
-import { toast } from "./ui/use-toast";
-import { ToastAction } from "./ui/toast";
+import { Form } from "../../components/ui/form";
+import CustomFormField from "../../components/CustomFormField";
+import { toast } from "../../components/ui/use-toast";
+import { ToastAction } from "../../components/ui/toast";
 import { useState } from "react";
 
 interface IProps {
@@ -79,6 +79,8 @@ const EditBookDialog = (props: IProps) => {
     },
   });
 
+  const fileRef = form.register("cover_image", { required: true });
+
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger>
@@ -108,8 +110,12 @@ const EditBookDialog = (props: IProps) => {
               control={form.control}
               name="cover_image"
             >
-              {(field) => (
-                <Input type="file" placeholder="Cover Image" {...field} />
+              {() => (
+                <Input
+                  type="file"
+                  accept="image/jpg, image/jpeg, image/png"
+                  {...fileRef}
+                />
               )}
             </CustomFormField>
 

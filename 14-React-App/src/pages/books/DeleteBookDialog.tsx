@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Trash2 } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../../components/ui/button";
 
 const DeleteBookDialog = () => {
   return (
