@@ -122,7 +122,6 @@ const Profile = () => {
               <form onSubmit={form.handleSubmit(updateProfileHandler)}>
                 <div className="flex grow flex-col gap-5">
                   <CustomFormField
-                    id="full_name"
                     name="full_name"
                     label="Full Name"
                     control={form.control}
@@ -130,7 +129,6 @@ const Profile = () => {
                   >
                     {(field) => (
                       <Input
-                        id="full_name"
                         className="mb-2 h-8 w-[250px] rounded-md"
                         placeholder="Full Name"
                         type="text"
@@ -140,7 +138,6 @@ const Profile = () => {
                   </CustomFormField>
 
                   <CustomFormField
-                    id="email"
                     name="email"
                     label="Email"
                     control={form.control}
@@ -148,7 +145,6 @@ const Profile = () => {
                   >
                     {(field) => (
                       <Input
-                        id="email"
                         className="mb-2 h-8 w-[250px] rounded-md"
                         placeholder="Email"
                         type="email"
@@ -159,14 +155,12 @@ const Profile = () => {
 
                   <div className="flex gap-2">
                     <CustomFormField
-                      id="password"
                       name="password"
                       label="Password"
                       control={form.control}
                     >
                       {(field) => (
                         <Input
-                          id="password"
                           className="h-8 w-[250px] rounded-md"
                           placeholder="Password"
                           type={showPassword ? "text" : "password"}
@@ -176,7 +170,6 @@ const Profile = () => {
                     </CustomFormField>
 
                     <CustomFormField
-                      id="repassword"
                       name="repassword"
                       label="Re-Password"
                       control={form.control}
@@ -184,7 +177,6 @@ const Profile = () => {
                       {(field) => (
                         <div className="flex gap-2">
                           <Input
-                            id="repassword"
                             className="h-8 w-[250px] rounded-md"
                             placeholder="Re-Password"
                             type={showPassword ? "text" : "password"}
@@ -209,7 +201,6 @@ const Profile = () => {
                   </div>
 
                   <CustomFormField
-                    id="address"
                     name="address"
                     label="Address"
                     control={form.control}
@@ -218,7 +209,6 @@ const Profile = () => {
                   </CustomFormField>
 
                   <CustomFormField
-                    id="phone_number"
                     name="phone_number"
                     label="Phone Number"
                     description=" We need your phone number to activate two-factor authentication."
@@ -234,7 +224,6 @@ const Profile = () => {
                   </CustomFormField>
 
                   <CustomFormField
-                    id="profile_picture"
                     name="profile_picture"
                     label="Profile Picture"
                     control={form.control}

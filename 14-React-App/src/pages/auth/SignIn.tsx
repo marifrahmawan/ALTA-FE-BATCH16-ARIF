@@ -71,14 +71,12 @@ const SignIn = () => {
           <form onSubmit={form.handleSubmit(loginHandler)}>
             <div className="mb-6 grid gap-5">
               <CustomFormField
-                id="email"
                 control={form.control}
                 name="email"
                 label="Email Address"
               >
                 {(field) => (
                   <Input
-                    id="email"
                     placeholder="Email"
                     type="email"
                     autoComplete="on"
@@ -88,7 +86,6 @@ const SignIn = () => {
               </CustomFormField>
 
               <CustomFormField
-                id="password"
                 control={form.control}
                 name="password"
                 label="Password"
@@ -96,7 +93,6 @@ const SignIn = () => {
                 {(field) => (
                   <div className="flex items-center gap-2">
                     <Input
-                      id="password"
                       placeholder="Password"
                       type={showPass ? "text" : "password"}
                       {...field}

@@ -10,8 +10,6 @@ const ProtectedRoutes = () => {
   const tokenProtected = ["/profile", "/book-list", "/history-borrow"];
   const roleProtected = ["/book-list", "/history-borrow"];
 
-  console.log(authProtected.includes(pathname));
-
   if (authProtected.includes(pathname)) {
     if (token) {
       return <Navigate to={"/"} />;

@@ -1,6 +1,10 @@
-import SideBar from "@/components/SideBar";
-import DashboardTitle from "./DashboardTitle";
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
 
+import EditBorrowedBook from "@/components/EditBorrowedBookDialog";
+import DeleteBookDialog from "@/components/DeleteBookDialog";
+import DashboardTitle from "./DashboardTitle";
+import SideBar from "@/components/SideBar";
 import {
   Table,
   TableBody,
@@ -9,11 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import DeleteBookDialog from "@/components/DeleteBookDialog";
-import { useEffect, useState } from "react";
+
 import { IBorrowedBooks, getBorrowedBooks } from "@/utils/api/borrow";
-import { format } from "date-fns";
-import EditBorrowedBook from "@/components/EditBorrowedBookDialog";
 
 const History = () => {
   const [borrowedBooks, setBorrowedBooks] = useState<IBorrowedBooks[]>();
@@ -34,11 +35,12 @@ const History = () => {
 
       <div className="flex h-full w-full">
         <SideBar />
+
         <div className="flex grow flex-col">
           <div className="mb-9 w-full border-b pb-5">
-            <p className="text-[20px] font-semibold">History Borrow</p>
+            <p className="text-[20px] font-semibold">User History Borrow</p>
             <p className="text-[14px] font-medium text-slate-600">
-              Manage you borrowed Books
+              Manage user borrowed Books
             </p>
           </div>
 
@@ -61,7 +63,7 @@ const History = () => {
                   return (
                     <TableRow key={borrowedBook.id}>
                       <TableCell className="font-medium">{i + 1}</TableCell>
-                      <TableCell>{borrowedBook.user.full_name}</TableCell>
+                      <TableCell>{borrowedBook.user?.full_name}</TableCell>
                       <TableCell>{borrowedBook.book.title}</TableCell>
                       <TableCell>
                         {format(

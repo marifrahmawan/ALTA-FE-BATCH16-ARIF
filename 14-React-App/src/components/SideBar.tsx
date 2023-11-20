@@ -18,6 +18,20 @@ const SideBar = () => {
           Profile
         </NavLink>
       </Button>
+      {user.role === "user" && (
+        <Button className="h-8 w-full overflow-hidden rounded-none bg-white p-0 text-black hover:bg-white hover:underline dark:bg-transparent dark:text-white dark:hover:bg-transparent">
+          <NavLink
+            to="/my-books"
+            className={({ isActive }) =>
+              isActive
+                ? "flex h-full w-full items-center bg-neutral-700 pl-5 text-white"
+                : "flex h-full w-full items-center bg-transparent pl-5"
+            }
+          >
+            My Books
+          </NavLink>
+        </Button>
+      )}
 
       {user.role === "admin" && (
         <>
@@ -43,7 +57,7 @@ const SideBar = () => {
                   : "flex h-full w-full items-center bg-transparent pl-5 text-black dark:text-white"
               }
             >
-              History
+              User History
             </NavLink>
           </Button>
         </>

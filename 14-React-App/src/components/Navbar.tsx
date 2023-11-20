@@ -78,6 +78,13 @@ const Navbar = () => {
                       Profile
                     </DropdownMenuItem>
                   </NavLink>
+                  {user.role === "user" && (
+                    <NavLink to="/my-books" className="w-full">
+                      <DropdownMenuItem className="hover:cursor-pointer">
+                        My Books
+                      </DropdownMenuItem>
+                    </NavLink>
+                  )}
                   {user.role === "admin" && (
                     <>
                       <NavLink to="/book-list" className="w-full">

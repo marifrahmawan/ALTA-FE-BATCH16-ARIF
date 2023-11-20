@@ -18,7 +18,6 @@ import { ReactNode } from "react";
 
 interface IProps<T extends FieldValues> {
   name: FieldPath<T>;
-  id: string;
   label: string;
   placeholder?: string;
   options?: string[];
@@ -31,7 +30,7 @@ interface ChildrenProps<T extends FieldValues> extends IProps<T> {
 }
 
 const CustomFormField = <T extends FieldValues>(props: ChildrenProps<T>) => {
-  const { id, name, label, description, control, children } = props;
+  const { name, label, description, control, children } = props;
 
   return (
     <FormField
@@ -39,9 +38,13 @@ const CustomFormField = <T extends FieldValues>(props: ChildrenProps<T>) => {
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel htmlFor={id}>{label}</FormLabel>
+          <FormLabel>{label}</FormLabel>
           <FormControl>{children(field)}</FormControl>
-          {description && <FormDescription className="text-[12px]">{description}</FormDescription>}
+          {description && (
+            <FormDescription className="text-[12px]">
+              {description}
+            </FormDescription>
+          )}
           <FormMessage />
         </FormItem>
       )}

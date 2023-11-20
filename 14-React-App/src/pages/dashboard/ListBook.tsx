@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { IBook, getBooks } from "@/utils/api/books";
 import EditBookDialog from "@/components/EditBookDialog";
 import DeleteBookDialog from "@/components/DeleteBookDialog";
+import { toast } from "@/components/ui/use-toast";
 
 const ListBook = () => {
   const [books, setBooks] = useState<IBook[]>([]);
@@ -24,13 +25,17 @@ const ListBook = () => {
   const fetchData = async () => {
     try {
       const result = await getBooks();
-      setBooks(result.payload.datas);
+      setBooks(result!.payload.datas);
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error) {
+        toast({
+          title: "Error",
+          description: "Oops! Something went wrong",
+          variant: "destructive",
+        });
+      }
     }
   };
-
-  console.log(books);
 
   return (
     <div className="container">

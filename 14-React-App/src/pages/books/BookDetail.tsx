@@ -13,7 +13,7 @@ const BookDetail = () => {
     const fetchData = async () => {
       try {
         const result = await getDetailBook(id);
-        setBook(result.payload);
+        setBook(result!.payload);
       } catch (error) {
         console.log(error);
       }

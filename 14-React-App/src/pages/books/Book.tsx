@@ -5,24 +5,25 @@ import { IBook } from "@/utils/api/books";
 import { getBooks } from "@/utils/api/books/api";
 import FilterBook from "./FilterBook";
 import { ListFilterIcon } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 const Book = () => {
   const [books, setBooks] = useState<IBook[]>([]);
-  // will use global state
-  // const [filterParams, setFilterParams] = useSearchParams();
+
+  const [sort] = useSearchParams();
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const result = await getBooks();
-      setBooks(result.payload.datas);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const fetchBook = async () => {
+      try {
+        const result = await getBooks(sort.get("sort")?.toString());
+        setBooks(result!.payload.datas);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    
+    fetchBook();
+  }, [sort]);
 
   return (
     <div className="container">

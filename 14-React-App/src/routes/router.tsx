@@ -8,6 +8,7 @@ import Profile from "@/pages/dashboard/Profile";
 import ListBook from "@/pages/dashboard/ListBook";
 import ProtectedRoutes from "./protected-routes";
 import History from "@/pages/dashboard/History";
+import MyBooks from "@/pages/dashboard/MyBooks";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
           {
             path: "history-borrow",
             element: <History />,
+          },
+          {
+            path: "my-books",
+            element: <MyBooks />,
           },
         ],
       },

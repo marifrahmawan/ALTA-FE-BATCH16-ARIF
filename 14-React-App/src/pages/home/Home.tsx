@@ -14,7 +14,7 @@ const Home = () => {
   const fetchData = async () => {
     try {
       const result = await getBooksForHomePage();
-      setBooks(result.payload.datas);
+      setBooks(result!.payload.datas);
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +23,7 @@ const Home = () => {
   const fetchNewBooks = async () => {
     try {
       const result = await getNewBooks();
-      setNewBooks(result.payload.datas);
+      setNewBooks(result!.payload.datas);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +54,7 @@ const Home = () => {
         </div>
       </div>
       <div className="w-full">
-        <div className="mb-3 flex justify-between items-end">
+        <div className="mb-3 flex items-end justify-between">
           <p className="text-[22px] font-semibold">Recommended for you</p>
           <NavLink to="/books" className="underline">
             More &#8594;
@@ -67,11 +67,11 @@ const Home = () => {
           })}
         </div>
 
-        <div className=" mb-3 flex justify-between items-end">
+        <div className=" mb-3 flex items-end justify-between">
           <p className="text-[22px] font-semibold">New Release Book</p>
-          <a href="./" className="underline">
+          <NavLink to="/books?sort=new" className="underline">
             More &#8594;
-          </a>
+          </NavLink>
         </div>
 
         <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">

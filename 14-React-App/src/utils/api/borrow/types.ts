@@ -10,7 +10,7 @@ export interface IBorrowedBooks {
     title: string;
     cover_image: string;
   };
-  user: {
+  user?: {
     id: number;
     full_name: string;
   };

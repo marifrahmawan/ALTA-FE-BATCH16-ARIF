@@ -9,11 +9,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-const frameworks = [
+const filters = [
   {
-    value: "popular",
-    label: "Popular",
+    value: "default",
+    label: "Default",
   },
   {
     value: "new",
@@ -24,6 +25,8 @@ const frameworks = [
 const FilterBook = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [filterParams, setFilterParams] = useSearchParams();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -35,7 +38,7 @@ const FilterBook = () => {
           className="w-[200px] justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
+            ? filters.find((filter) => filter.value === value)?.label
             : "Filter"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -43,22 +46,25 @@ const FilterBook = () => {
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandGroup>
-            {frameworks.map((framework) => (
+            {filters.map((filter) => (
               <CommandItem
-                key={framework.value}
-                value={framework.value}
+                key={filter.value}
+                value={filter.value}
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "" : currentValue);
                   setOpen(false);
+                  setFilterParams(
+                    currentValue === value ? "" : { sort: currentValue },
+                  );
                 }}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0",
+                    value === filter.value ? "opacity-100" : "opacity-0",
                   )}
                 />
-                {framework.label}
+                {filter.label}
               </CommandItem>
             ))}
           </CommandGroup>
