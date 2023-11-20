@@ -35,8 +35,16 @@ const EditBookDialog = (props: IProps) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const editBookHandler = async (values: IEditBook) => {
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("author", values.author);
+    formData.append("isbn", values.isbn);
+    formData.append("category", values.category);
+    formData.append("description", values.description);
+    formData.append("cover_image", values.cover_image[0]);
+
     try {
-      const res = await updateBookData(data.id.toString(), values);
+      const res = await updateBookData(data.id.toString(), formData);
 
       setOpenDialog(false);
       toast({
@@ -64,16 +72,6 @@ const EditBookDialog = (props: IProps) => {
       isbn: data.isbn,
       category: data.category,
       cover_image: data.cover_image,
-      description: data.description,
-      featured: data.featured,
-    },
-    values: {
-      id: data.id,
-      title: data.title,
-      author: data.author,
-      isbn: data.isbn,
-      category: data.category,
-      cover_image: "",
       description: data.description,
       featured: data.featured,
     },
@@ -110,11 +108,12 @@ const EditBookDialog = (props: IProps) => {
               control={form.control}
               name="cover_image"
             >
-              {() => (
+              {(field) => (
                 <Input
                   type="file"
                   accept="image/jpg, image/jpeg, image/png"
                   {...fileRef}
+                  // {...field}
                 />
               )}
             </CustomFormField>
@@ -170,7 +169,7 @@ const EditBookDialog = (props: IProps) => {
             </CustomFormField>
 
             <Button
-              disabled={form.formState.isSubmitting}
+              disabled={form.formState.isSubmitting || !form.formState.isValid}
               aria-disabled={form.formState.isSubmitting}
               type="submit"
             >
