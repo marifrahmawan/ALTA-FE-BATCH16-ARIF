@@ -1,11 +1,12 @@
 import axios from "axios";
 
-let bearerToken = "";
-
 const axiosWithConfig = axios.create();
+
+let bearerToken = "";
 
 export const setAxiosConfig = (token: string) => {
   bearerToken = token;
+  return bearerToken;
 };
 
 axiosWithConfig.interceptors.request.use((axiosConfig) => {

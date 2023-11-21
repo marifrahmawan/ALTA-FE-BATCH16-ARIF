@@ -28,6 +28,8 @@ const FilterBook = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [filterParams, setFilterParams] = useSearchParams();
 
+  console.log(filterParams);
+  
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild className="dark:bg-primary-black">

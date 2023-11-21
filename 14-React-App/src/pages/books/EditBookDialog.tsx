@@ -44,7 +44,7 @@ const EditBookDialog = (props: IProps) => {
     formData.append("cover_image", values.cover_image[0]);
 
     try {
-      const res = await updateBookData(data.id.toString(), formData);
+      const res = await updateBookData(data.id.toString(), formData as any);
 
       setOpenDialog(false);
       toast({
@@ -108,7 +108,7 @@ const EditBookDialog = (props: IProps) => {
               control={form.control}
               name="cover_image"
             >
-              {(field) => (
+              {() => (
                 <Input
                   type="file"
                   accept="image/jpg, image/jpeg, image/png"
