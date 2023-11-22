@@ -1,5 +1,7 @@
 # ALTA Immersive FrontEnd Resource
 
+### Link vercel Library apps with react + typescript + vite (https://little-elibrary-22px.vercel.app/)
+
 Repository pengumpulan tugas harian ALTA Immersive Program FrontEnd.
 
 ## Tata Cara Pengerjakan Tugas
