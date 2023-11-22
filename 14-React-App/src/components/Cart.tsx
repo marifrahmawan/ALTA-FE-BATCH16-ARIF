@@ -82,8 +82,10 @@ const Cart = () => {
 
             <div className="absolute bottom-0 w-full">
               <Button
-                className="mt-4 w-full"
+                className="mt-4 w-full dark:bg-primary-black dark:text-white dark:hover:bg-[#252525]"
                 onClick={() => borrowBookHandler()}
+                disabled={cart.length < 1}
+                aria-disabled={cart.length < 1}
               >
                 Borrow
               </Button>
