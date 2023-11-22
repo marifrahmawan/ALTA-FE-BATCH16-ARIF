@@ -52,6 +52,8 @@ const AddBookDialog = () => {
         title: "Success",
         description: res?.message,
       });
+
+      form.reset();
     } catch (error) {
       if (error instanceof Error) {
         toast({
