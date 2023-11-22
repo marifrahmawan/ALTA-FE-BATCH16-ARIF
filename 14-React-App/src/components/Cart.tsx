@@ -39,7 +39,7 @@ const Cart = () => {
         <div
           className={`${
             showCartState ? "block" : "hidden"
-          } fixed left-0 top-0 z-10 h-screen w-screen bg-slate-300/80 backdrop-blur-sm dark:bg-primary-black/75`}
+          } fixed left-0 top-0 z-10 h-screen w-screen bg-slate-300/80 backdrop-blur-sm dark:bg-gray-900/80`}
           onClick={() => closeCart()}
         ></div>
       </div>
@@ -48,7 +48,7 @@ const Cart = () => {
         <div
           className={`${
             showCartState ? "" : "translate-x-full"
-          } fixed right-0 top-0 z-20 h-screen w-[400px] bg-white px-5 py-5 transition-all duration-700 ease-in-out`}
+          } fixed right-0 top-0 z-20 h-screen w-[400px] bg-white px-5 py-5 transition-all duration-700 ease-in-out dark:bg-primary-black`}
         >
           <div className="relative h-full w-full">
             <div className="flex items-center justify-between">
@@ -82,7 +82,7 @@ const Cart = () => {
 
             <div className="absolute bottom-0 w-full">
               <Button
-                className="mt-4 w-full dark:bg-primary-black dark:text-white dark:hover:bg-[#252525]"
+                className="mt-4 w-full "
                 onClick={() => borrowBookHandler()}
                 disabled={cart.length < 1}
                 aria-disabled={cart.length < 1}
