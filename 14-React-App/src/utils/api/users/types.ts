@@ -11,7 +11,7 @@ export interface IProfile {
   password?: string;
 }
 
-const MAX_FILE_SIZE = 500000;
+const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
 export const editUserProfileSchema = z
@@ -41,14 +41,12 @@ export const editUserProfileSchema = z
       .min(7, { message: "Phone number minimum length is 7" }),
     profile_picture: z
       .any()
+      .refine((file) => file?.length == 1, "File is required.")
       .refine(
-        (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-        "Max image size is 5MB",
-      )
-      .refine(
-        (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        (file) => ACCEPTED_IMAGE_TYPES.includes(file?.[0]?.type),
         "Only .jpg, .jpeg, .png formats are supported",
       )
+      .refine((file) => file[0]?.size <= MAX_FILE_SIZE, `Max image size is 5MB`)
       .optional()
       .or(z.literal("")),
   })

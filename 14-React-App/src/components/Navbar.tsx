@@ -12,15 +12,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "@/utils/theme-provider";
-import { Computer, Moon, Sun } from "lucide-react";
+import { Computer, Moon, ShoppingBasket, Sun } from "lucide-react";
 import { Input } from "./ui/input";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useToken } from "@/utils/contexts/token";
+import useCartStore from "@/utils/store/cart";
 
 const Navbar = () => {
   const { setTheme } = useTheme();
   const { token, user, changeToken } = useToken();
   const navigate = useNavigate();
+
+  const openCart = useCartStore((state) => state.showCartHandler);
+  const cart = useCartStore((state) => state.cart);
 
   return (
     <header className="sticky left-0 top-0 z-10  mb-5 h-16 w-full bg-white dark:bg-primary-black">
@@ -32,11 +36,22 @@ const Navbar = () => {
           <p className="text-[12px] font-medium">Your book partners</p>
         </NavLink>
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6">
           <Input
             className="h-8 rounded-sm dark:text-white"
             placeholder="Search Books"
           />
+          {token && user.role === "user" && (
+            <div className="relative h-full">
+              <ShoppingBasket
+                className=" h-7 w-7 hover:cursor-pointer"
+                onClick={() => openCart()}
+              />
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary-black text-[10px] text-white dark:bg-white dark:text-primary-black">
+                {cart.length}
+              </span>
+            </div>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
@@ -92,9 +107,9 @@ const Navbar = () => {
                           Book List
                         </DropdownMenuItem>
                       </NavLink>
-                      <NavLink to="/history-borrow" className="w-full">
+                      <NavLink to="/user-history" className="w-full">
                         <DropdownMenuItem className="hover:cursor-pointer">
-                          History Borrow
+                          User History
                         </DropdownMenuItem>
                       </NavLink>
                     </>

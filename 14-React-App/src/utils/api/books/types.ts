@@ -18,6 +18,25 @@ export type BookContextType = {
   bookItems: IBook[];
 };
 
+export const addBookSchema = z.object({
+  title: z.string().min(1, { message: "Title is Required" }),
+  featured: z.boolean().optional(),
+  author: z.string().min(1, { message: "Author is Required" }),
+  isbn: z.string().min(1, { message: "ISBN is Required" }),
+  category: z.string().min(1, { message: "Category is Required" }),
+  description: z.string().min(1, { message: "Description is Required" }),
+  cover_image: z
+    .any()
+    .refine((file) => file?.length == 1, "File is required.")
+    .refine(
+      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.[0]?.type),
+      "Only .jpg, .jpeg, .png formats are supported",
+    )
+    .refine((file) => file[0]?.size <= MAX_FILE_SIZE, `Max image size is 5MB`)
+    .optional()
+    .or(z.literal("")),
+});
+
 export const editBookSchema = z.object({
   id: z.number(),
   title: z.string().min(1, { message: "Title is Required" }),
@@ -38,4 +57,5 @@ export const editBookSchema = z.object({
     .or(z.literal("")),
 });
 
+export type IAddBook = z.infer<typeof addBookSchema>;
 export type IEditBook = z.infer<typeof editBookSchema>;

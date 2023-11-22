@@ -11,9 +11,10 @@ import SideBar from "@/components/SideBar";
 import DashboardTitle from "./DashboardTitle";
 import { useEffect, useState } from "react";
 import { IBook, getBooks } from "@/utils/api/books";
-import EditBookDialog from "@/pages/books/EditBookDialog";
-import DeleteBookDialog from "@/pages/books/DeleteBookDialog";
+import EditBookDialog from "@/pages/dashboard/BookDialog/EditBookDialog";
+import DeleteBookDialog from "@/pages/dashboard/BookDialog/DeleteBookDialog";
 import { toast } from "@/components/ui/use-toast";
+import AddBookDialog from "./BookDialog/AddBookDialog";
 
 const ListBook = () => {
   const [books, setBooks] = useState<IBook[]>([]);
@@ -43,11 +44,17 @@ const ListBook = () => {
       <div className="flex h-full w-full">
         <SideBar />
         <div className="flex grow flex-col">
-          <div className="mb-9 w-full border-b pb-5">
-            <p className="text-[20px] font-semibold">Book List</p>
-            <p className="text-[14px] font-medium text-slate-600">
-              Manage books in Library
-            </p>
+          <div className="mb-9 flex w-full border-b pb-5">
+            <div className="flex grow flex-col justify-between">
+              <p className="text-[20px] font-semibold">Book List</p>
+              <p className="text-[14px] font-medium text-slate-600">
+                Manage books in Library
+              </p>
+            </div>
+
+            <div className="flex items-center">
+              <AddBookDialog />
+            </div>
           </div>
           <div className="flex">
             <Table>
@@ -77,7 +84,7 @@ const ListBook = () => {
                         <EditBookDialog key={book.id} data={book} />
                       </TableCell>
                       <TableCell className="text-right">
-                        <DeleteBookDialog key={book.id} />
+                        <DeleteBookDialog key={book.id} id={book.id.toString()} status="deleteBook" />
                       </TableCell>
                     </TableRow>
                   );

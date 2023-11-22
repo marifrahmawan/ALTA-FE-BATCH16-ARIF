@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 
-import EditBorrowedBook from "@/pages/books/EditBorrowedBookDialog";
-import DeleteBookDialog from "@/pages/books/DeleteBookDialog";
+import EditBorrowedBook from "@/pages/dashboard/BookDialog/EditBorrowedBookDialog";
+import DeleteBookDialog from "@/pages/dashboard/BookDialog/DeleteBookDialog";
 import DashboardTitle from "./DashboardTitle";
 import SideBar from "@/components/SideBar";
 import {
@@ -95,7 +95,11 @@ const History = () => {
                         />
                       </TableCell>
                       <TableCell className="text-right">
-                        <DeleteBookDialog key={borrowedBook.id} />
+                        <DeleteBookDialog
+                          key={borrowedBook.id}
+                          id={borrowedBook.id.toString()}
+                          status='deleteBorrow'
+                        />
                       </TableCell>
                     </TableRow>
                   );

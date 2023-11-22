@@ -6,7 +6,7 @@ import { Response } from "@/utils/types/types";
 export const registerUser = async (body: IRegisterUser) => {
   try {
     const res = await axiosWithConfig.post(
-      "https://hells-kitchen.onrender.com/api/v1/register",
+      "/register",
       body,
     );
 
@@ -21,7 +21,7 @@ export const registerUser = async (body: IRegisterUser) => {
 export const loginUser = async (body: ILoginUser) => {
   try {
     const res = await axiosWithConfig.post(
-      "https://hells-kitchen.onrender.com/api/v1/login",
+      "/login",
       body,
     );
 

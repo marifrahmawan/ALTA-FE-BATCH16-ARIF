@@ -16,6 +16,11 @@ export interface IBorrowedBooks {
   };
 }
 
+export interface IAddBorrowBooks {
+  bookId: number[];
+  borrow_date: Date;
+}
+
 export const editBorrowBookSchema = z.object({
   borrow_date: z.coerce.date(),
   due_date: z.coerce.date(),

@@ -24,6 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import DashboardTitle from "./DashboardTitle";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomFormField from "@/components/CustomFormField";
+import ProfileDelete from "./ProfileDelete";
 
 const Profile = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -54,7 +55,16 @@ const Profile = () => {
 
   const updateProfileHandler = async (values: IEditUserProfile) => {
     try {
-      const res = await updateUserProfile(values);
+      const formData = new FormData();
+      formData.append("full_name", values.full_name);
+      formData.append("email", values.email);
+      formData.append("password", values.password as string);
+      formData.append("address", values.address);
+      formData.append("phone_number", values.phone_number);
+      formData.append("profile_picture", values.profile_picture[0]);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res = await updateUserProfile(formData as any);
 
       toast({
         title: "Completed",
@@ -86,14 +96,14 @@ const Profile = () => {
     values: {
       full_name: profileData ? profileData.full_name : "",
       email: profileData ? profileData.email : "",
-      password: "",
-      repassword: "",
       address: profileData ? profileData.address : "",
       phone_number: profileData ? profileData.phone_number : "",
       role: profileData ? profileData.role : "",
       profile_picture: "",
     },
   });
+
+  const fileRef = form.register("profile_picture", { required: true });
 
   return (
     <div className="container">
@@ -228,19 +238,20 @@ const Profile = () => {
                     label="Profile Picture"
                     control={form.control}
                   >
-                    {(field) => (
+                    {() => (
                       <Input
                         type="file"
                         className="mb-2 w-[250px] rounded-md"
-                        {...field}
+                        accept="image/jpg, image/jpeg, image/png"
+                        {...fileRef}
                       />
                     )}
                   </CustomFormField>
 
-                  <div className="flex w-[60%] gap-5">
+                  <div className="mt-5 flex gap-5">
                     <Button
                       type="submit"
-                      className="w-[50%] grow"
+                      className="w-[200px]"
                       disabled={form.formState.isSubmitting}
                       aria-disabled={form.formState.isSubmitting}
                     >
@@ -253,9 +264,9 @@ const Profile = () => {
                         "Update"
                       )}
                     </Button>
-                    <Button className="w-[50%] grow bg-secondary-red dark:bg-secondary-red dark:text-white">
-                      Delete Profile
-                    </Button>
+                    <span className="w-[200px]">
+                      <ProfileDelete />
+                    </span>
                   </div>
                 </div>
               </form>

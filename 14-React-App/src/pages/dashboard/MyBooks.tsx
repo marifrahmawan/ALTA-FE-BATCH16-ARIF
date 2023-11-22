@@ -65,7 +65,7 @@ const MyBooks = () => {
                   </p>
                   <p className="mt-4 text-[14px] font-medium">Borrow Date</p>
                   <Button
-                    className="flex justify-start gap-3 bg-transparent p-0 text-[12px] text-black"
+                    className="flex justify-start gap-3 p-0 text-[12px] text-black disabled:bg-transparent dark:text-slate-200 dark:disabled:bg-transparent"
                     disabled
                   >
                     <CalendarClock />{" "}
@@ -73,7 +73,7 @@ const MyBooks = () => {
                   </Button>
                   <p className="text-[14px] font-medium">Due Date</p>
                   <Button
-                    className="flex justify-start gap-3 bg-transparent p-0 text-[12px] text-black"
+                    className="flex justify-start gap-3 p-0 text-[12px] text-black disabled:bg-transparent dark:text-slate-200 dark:disabled:bg-transparent"
                     disabled
                   >
                     <CalendarCheck />{" "}

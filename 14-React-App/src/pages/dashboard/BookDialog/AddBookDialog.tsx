@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Dialog,
   DialogContent,
@@ -12,39 +14,38 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, Pencil } from "lucide-react";
-import { Input } from "../../components/ui/input";
-import { Textarea } from "../../components/ui/textarea";
-import { Button } from "../../components/ui/button";
-import { IEditBook, updateBookData } from "@/utils/api/books";
+import { Textarea } from "@/components/ui/textarea";
+import { ToastAction } from "@/components/ui/toast";
+import { toast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
+
+import { Loader2 } from "lucide-react";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { editBookSchema } from "@/utils/api/books/types";
-import { Form } from "../../components/ui/form";
-import CustomFormField from "../../components/CustomFormField";
-import { toast } from "../../components/ui/use-toast";
-import { ToastAction } from "../../components/ui/toast";
-import { useState } from "react";
+import CustomFormField from "@/components/CustomFormField";
 
-interface IProps {
-  data: IEditBook;
-}
+import { createBookData, IAddBook, addBookSchema } from "@/utils/api/books";
 
-const EditBookDialog = (props: IProps) => {
-  const { data } = props;
+const AddBookDialog = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
-  const editBookHandler = async (values: IEditBook) => {
-    const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("author", values.author);
-    formData.append("isbn", values.isbn);
-    formData.append("category", values.category);
-    formData.append("description", values.description);
-    formData.append("cover_image", values.cover_image[0]);
-
+  const editBookHandler = async (values: IAddBook) => {
     try {
-      const res = await updateBookData(data.id.toString(), formData as any);
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("author", values.author);
+      formData.append("isbn", values.isbn);
+      formData.append("category", values.category);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      formData.append("featured", values.featured as any);
+      formData.append("description", values.description);
+      formData.append("cover_image", values.cover_image[0]);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res = await createBookData(formData as any);
 
       setOpenDialog(false);
       toast({
@@ -63,17 +64,16 @@ const EditBookDialog = (props: IProps) => {
     }
   };
 
-  const form = useForm<IEditBook>({
-    resolver: zodResolver(editBookSchema),
+  const form = useForm<IAddBook>({
+    resolver: zodResolver(addBookSchema),
     defaultValues: {
-      id: data.id,
-      title: data.title,
-      author: data.author,
-      isbn: data.isbn,
-      category: data.category,
-      cover_image: data.cover_image,
-      description: data.description,
-      featured: data.featured,
+      title: "",
+      author: "",
+      isbn: "",
+      category: "",
+      cover_image: "",
+      description: "",
+      featured: false,
     },
   });
 
@@ -81,8 +81,8 @@ const EditBookDialog = (props: IProps) => {
 
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-      <DialogTrigger>
-        <Pencil />
+      <DialogTrigger className="h-[40px] w-[100px] rounded-md bg-primary-black text-[14px] text-white dark:bg-white dark:text-primary-black">
+        Add Book
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -113,7 +113,6 @@ const EditBookDialog = (props: IProps) => {
                   type="file"
                   accept="image/jpg, image/jpeg, image/png"
                   {...fileRef}
-                  // {...field}
                 />
               )}
             </CustomFormField>
@@ -135,8 +134,8 @@ const EditBookDialog = (props: IProps) => {
               control={form.control}
               name="category"
             >
-              {() => (
-                <Select defaultValue={data.category}>
+              {(field) => (
+                <Select onValueChange={field.onChange}>
                   <SelectTrigger>
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
@@ -165,7 +164,7 @@ const EditBookDialog = (props: IProps) => {
               control={form.control}
               name="description"
             >
-              {(field) => <Textarea placeholder="ISBN" {...field} />}
+              {(field) => <Textarea placeholder="Description" {...field} />}
             </CustomFormField>
 
             <Button
@@ -179,7 +178,7 @@ const EditBookDialog = (props: IProps) => {
                   Loading
                 </>
               ) : (
-                "Update"
+                "Submit"
               )}
             </Button>
           </form>
@@ -189,4 +188,4 @@ const EditBookDialog = (props: IProps) => {
   );
 };
 
-export default EditBookDialog;
+export default AddBookDialog;

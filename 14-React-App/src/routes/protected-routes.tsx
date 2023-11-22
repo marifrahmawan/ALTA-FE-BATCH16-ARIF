@@ -7,8 +7,8 @@ const ProtectedRoutes = () => {
   const { token, user } = useToken();
 
   const authProtected = ["/signin", "/signup"];
-  const tokenProtected = ["/profile", "/book-list", "/history-borrow"];
-  const roleProtected = ["/book-list", "/history-borrow"];
+  const tokenProtected = ["/profile", "/book-list", "/user-history"];
+  const roleProtected = ["/book-list", "/user-history"];
 
   if (authProtected.includes(pathname)) {
     if (token) {

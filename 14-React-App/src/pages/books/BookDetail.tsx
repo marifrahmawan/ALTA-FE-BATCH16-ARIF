@@ -4,7 +4,9 @@ import { Badge } from "@/components/ui/badge";
 
 import { NavLink, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import useCartStore from "@/utils/store/cart";
+import { toast } from "@/components/ui/use-toast";
 
 const BookDetail = () => {
   const { id } = useParams();
@@ -23,6 +25,24 @@ const BookDetail = () => {
   }, [id]);
 
   const [book, setBook] = useState<IBook>();
+
+  const addBook = useCartStore((state) => state.addBook);
+  const cart = useCartStore((state) => state.cart);
+  const addBookHandler = () => {
+    toast({
+      description: `${book?.title} added to Cart`,
+    });
+
+    addBook(book!);
+  };
+
+  const isInCart = useMemo(() => {
+    const checkCartItem = cart.find((item) => item.id == +id!);
+
+    if (checkCartItem) return true;
+
+    return false;
+  }, [cart]);
 
   return (
     <div className="container h-full w-full">
@@ -50,7 +70,14 @@ const BookDetail = () => {
           </NavLink>
           <p className="mb-12 mt-7 w-[70%] text-justify">{book?.description}</p>
 
-          <Button className="w-[70%]">Borrow</Button>
+          <Button
+            className="w-[70%]"
+            onClick={() => addBookHandler()}
+            disabled={isInCart}
+            aria-disabled={isInCart}
+          >
+            {isInCart ? "In Cart" : "Borrow"}
+          </Button>
         </div>
       </div>
     </div>

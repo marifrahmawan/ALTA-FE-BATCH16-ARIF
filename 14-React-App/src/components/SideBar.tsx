@@ -50,7 +50,7 @@ const SideBar = () => {
 
           <Button className="h-8 w-full overflow-hidden rounded-none bg-white p-0 hover:bg-white hover:underline dark:bg-transparent dark:text-white dark:hover:bg-transparent">
             <NavLink
-              to="/history-borrow"
+              to="/user-history"
               className={({ isActive }) =>
                 isActive
                   ? "flex h-full w-full items-center bg-neutral-700 pl-5 text-white"
