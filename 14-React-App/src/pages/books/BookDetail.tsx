@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useMemo, useState } from "react";
 import useCartStore from "@/utils/store/cart";
 import { toast } from "@/components/ui/use-toast";
+import { useToken } from "@/utils/contexts/token";
 
 const BookDetail = () => {
   const { id } = useParams();
+  const { user } = useToken();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,14 +72,16 @@ const BookDetail = () => {
           </NavLink>
           <p className="mb-12 mt-7 w-[70%] text-justify">{book?.description}</p>
 
-          <Button
-            className="w-[70%]"
-            onClick={() => addBookHandler()}
-            disabled={isInCart}
-            aria-disabled={isInCart}
-          >
-            {isInCart ? "In Cart" : "Borrow"}
-          </Button>
+          {user.role === "user" && Object.keys(user).length > 1 && (
+            <Button
+              className="w-[70%]"
+              onClick={() => addBookHandler()}
+              disabled={isInCart}
+              aria-disabled={isInCart}
+            >
+              {isInCart ? "In Cart" : "Borrow"}
+            </Button>
+          )}
         </div>
       </div>
     </div>
