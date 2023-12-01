@@ -1,5 +1,3 @@
-import { debounce } from "lodash";
-
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
@@ -18,6 +16,7 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getBooks } from "@/utils/api/books";
+import { debounce } from "lodash";
 
 interface SearchBoxDatas {
   id: number;
