@@ -1,11 +1,25 @@
-import { Response, PayloadPagination } from "@/utils/types/types";
+import { Response, PayloadPagination, Request } from "@/utils/types/types";
 import { IAddBook, IBook, IEditBook } from ".";
 import axiosWithConfig from "../axiosWithConfig";
 import { AxiosError } from "axios";
 
-export const getBooks = async (sort?: string) => {
+export const getBooks = async (params?: Request) => {
   try {
-    const res = await axiosWithConfig.get(`/books?sort=${sort}`);
+    let query = "";
+
+    if (params) {
+      const queryParams: string[] = [];
+
+      let key: keyof typeof params;
+
+      for (key in params) {
+        queryParams.push(`${key}=${params[key]}`);
+      }
+
+      query = queryParams.join("&");
+    }
+    const url = query ? `/books?${query}&limit=8` : "/books?limit=8";
+    const res = await axiosWithConfig.get(url);
 
     return res.data as Response<PayloadPagination<IBook[]>>;
   } catch (error) {

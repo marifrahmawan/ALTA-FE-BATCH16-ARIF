@@ -13,7 +13,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "@/utils/theme-provider";
 import { Computer, Moon, ShoppingBasket, Sun } from "lucide-react";
-import { Input } from "./ui/input";
+import SearchBox from "./SearchBox";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useToken } from "@/utils/contexts/token";
 import useCartStore from "@/utils/store/cart";
@@ -37,10 +37,7 @@ const Navbar = () => {
         </NavLink>
 
         <div className="flex items-center gap-6">
-          <Input
-            className="h-8 rounded-sm dark:text-white"
-            placeholder="Search Books"
-          />
+          <SearchBox placeholder="Search Books" />
           {token && user.role === "user" && (
             <div className="relative h-full">
               <ShoppingBasket
