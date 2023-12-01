@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { generatePagesToDisplay } from "@/utils/formatter";
 import { Meta } from "@/utils/types/types";
 import { useMemo } from "react";
@@ -15,7 +16,7 @@ const Pagination = (props: IProps) => {
   const { meta, onClickNext, onClickPrev, onClickPage } = props;
 
   const pagesToDisplay = useMemo(
-    () => generatePagesToDisplay(meta?.currentPage, meta?.totalPages),
+    () => generatePagesToDisplay(meta?.currentPage!, meta?.totalPages!),
     [meta],
   );
   return (
